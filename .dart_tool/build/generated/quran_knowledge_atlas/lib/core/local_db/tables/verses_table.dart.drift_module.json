@@ -1,0 +1,157 @@
+{
+  "elements": {
+    "verses": {
+      "id": {
+        "library_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+        "name": "verses"
+      },
+      "declaration": {
+        "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+        "offset": 89,
+        "name": "Verses"
+      },
+      "references": [],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "surah_num",
+          "nameInDart": "surahNum",
+          "declaration": {
+            "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+            "offset": 128,
+            "name": "surahNum"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "ayah_num",
+          "nameInDart": "ayahNum",
+          "declaration": {
+            "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+            "offset": 169,
+            "name": "ayahNum"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "text_arabic",
+          "nameInDart": "textArabic",
+          "declaration": {
+            "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+            "offset": 210,
+            "name": "textArabic"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "text_translation",
+          "nameInDart": "textTranslation",
+          "declaration": {
+            "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+            "offset": 251,
+            "name": "textTranslation"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "bool"
+          },
+          "nullable": false,
+          "nameInSql": "is_read",
+          "nameInDart": "isRead",
+          "declaration": {
+            "source_uri": "package:quran_knowledge_atlas/core/local_db/tables/verses_table.dart",
+            "offset": 297,
+            "name": "isRead"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              "const ",
+              {
+                "lexeme": "Constant",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              },
+              "(false)"
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [
+        {
+          "type": "primary_key",
+          "columns": [
+            "surah_num",
+            "ayah_num"
+          ]
+        }
+      ],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "Verses",
+      "row_class_name": "Verse",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart"
+  ]
+}

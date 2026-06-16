@@ -1,0 +1,44 @@
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$userProgressHash() => r'506206f9f0b0691f5a8f8916ac83e4789962b1ef';
+
+/// StreamProvider reactively watching user progress and read verses.
+///
+/// Copied from [userProgress].
+@ProviderFor(userProgress)
+final userProgressProvider =
+    AutoDisposeStreamProvider<UserProgressState>.internal(
+  userProgress,
+  name: r'userProgressProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userProgressHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef UserProgressRef = AutoDisposeStreamProviderRef<UserProgressState>;
+String _$surahListHash() => r'c63126452a9b8955580119a776bec1aedb9b04c6';
+
+/// StreamProvider exposing the list of all 114 surahs with read counts.
+///
+/// Copied from [surahList].
+@ProviderFor(surahList)
+final surahListProvider =
+    AutoDisposeStreamProvider<List<SurahListItem>>.internal(
+  surahList,
+  name: r'surahListProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$surahListHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SurahListRef = AutoDisposeStreamProviderRef<List<SurahListItem>>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

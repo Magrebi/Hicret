@@ -1,0 +1,30 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'constellation_notifier.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$constellationNotifierHash() =>
+    r'5d748d037b131fab32686546e9cae2469a313650';
+
+/// Always-alive state notifier that manages graph coordinates and elements.
+/// It implements a lazy fetch, running queries only on the first subscription (screen load).
+///
+/// Copied from [ConstellationNotifier].
+@ProviderFor(ConstellationNotifier)
+final constellationNotifierProvider =
+    AsyncNotifierProvider<ConstellationNotifier, ConstellationState>.internal(
+  ConstellationNotifier.new,
+  name: r'constellationNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$constellationNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ConstellationNotifier = AsyncNotifier<ConstellationState>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

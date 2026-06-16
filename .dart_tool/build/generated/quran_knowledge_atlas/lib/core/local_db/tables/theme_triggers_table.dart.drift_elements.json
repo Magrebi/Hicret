@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:drift/drift.dart","transitive":false},{"uri":"package:quran_knowledge_atlas/core/local_db/tables/themes_table.dart","transitive":false}],"elements":[{"kind":"table","name":"theme_triggers","dart_name":"ThemeTriggers"}]}

@@ -1,0 +1,148 @@
+{
+  "name": "Quran Knowledge Atlas Design Tokens",
+  "version": "1.0.0",
+  "colors": {
+    "reading_surface": {
+      "light": {
+        "value": "#FDFCFA",
+        "description": "Warm off-white background for light mode reading comfort, avoiding pure white glare"
+      },
+      "dark": {
+        "value": "#1A1815",
+        "description": "Deep warm dark background for dark mode reading, avoiding cold pure black"
+      }
+    },
+    "constellation_bg": {
+      "value": "#0D1B2A",
+      "description": "Deep navy background, always-dark for both light and dark modes of the app"
+    },
+    "teal_ramp": {
+      "teal_50": { "value": "#E1F5EE" },
+      "teal_200": { "value": "#5DCAA5" },
+      "teal_400": {
+        "value": "#1D9E75",
+        "description": "Primary interactive color, used for CTA borders, streaks, and progress bars"
+      },
+      "teal_600": {
+        "value": "#0F6E56",
+        "description": "Primary border and active text selection state highlight"
+      },
+      "teal_800": {
+        "value": "#085041",
+        "description": "Text labels placed on light teal backgrounds for high readability"
+      }
+    },
+    "warm_neutral_ramp": {
+      "neutral_0": { "value": "#FDFCFA", "description": "Light mode background" },
+      "neutral_50": { "value": "#F4F2EE", "description": "Card background for secondary layouts" },
+      "neutral_100": { "value": "#E8E5DF", "description": "Dividers and inactive component background" },
+      "neutral_200": { "value": "#C9C6BE", "description": "Muted border lines" },
+      "neutral_400": { "value": "#8C8880", "description": "Secondary metadata text and subtitles" },
+      "neutral_600": { "value": "#5A574F", "description": "Primary body reading text in light mode" },
+      "neutral_800": { "value": "#2C2A25", "description": "Headings and display titles in light mode" },
+      "neutral_900": { "value": "#1A1815", "description": "Dark mode background color" }
+    },
+    "entity_types": {
+      "prophet": { "value": "#1D9E75", "description": "Teal-400 color assigned to Prophets" },
+      "location": { "value": "#EF9F27", "description": "Amber color assigned to Locations" },
+      "nature": { "value": "#639922", "description": "Green color assigned to Natural objects (animals, plants)" },
+      "theme": { "value": "#7F77DD", "description": "Purple color assigned to Quranic themes (Patience, Gratitude)" },
+      "matriarch": { "value": "#D85A30", "description": "Coral color assigned to Matriarchs and other historical figures" },
+      "undiscovered": { "value": "#2A2E35", "description": "Dark outline-only color for undiscovered entities in the Constellation" }
+    },
+    "teal_wash": {
+      "wash_bg": {
+        "value": "#B8E8D8",
+        "description": "Light teal wash semi-transparent background for rare discovery sheets"
+      },
+      "wash_text": {
+        "value": "#FFFFFF",
+        "description": "Contrasting white text on rare discovery wash backgrounds"
+      }
+    }
+  },
+  "typography": {
+    "fonts": {
+      "arabic": {
+        "primary": "Amiri Quran",
+        "alternative": "KFGQPC Uthmanic"
+      },
+      "display": {
+        "primary": "Serif"
+      },
+      "ui": {
+        "primary": "SF Pro",
+        "fallback": "Roboto"
+      }
+    },
+    "sizes": {
+      "size_arabic_xl": { "value": "26px", "description": "Reader primary Arabic text size" },
+      "size_arabic_lg": { "value": "22px", "description": "Reader compact Arabic text or dark mode text size" },
+      "size_arabic_sm": { "value": "18px", "description": "Continue reading card snippet size" },
+      "size_display": { "value": "40px", "description": "Welcome header and entity detail large name size" },
+      "size_title": { "value": "24px", "description": "Screen headings size" },
+      "size_body": { "value": "16px", "description": "Primary translation text size" },
+      "size_secondary": { "value": "14px", "description": "Surah metadata and compact translation text size" },
+      "size_caption": { "value": "12px", "description": "Type labels and ayah count indicator text size" },
+      "size_label": { "value": "11px", "description": "Chips and small badge text size" }
+    },
+    "weights": {
+      "regular": { "value": 400 },
+      "medium": { "value": 500 },
+      "bold": { "value": 700 }
+    },
+    "leading": {
+      "leading_arabic": { "value": 2.2 },
+      "leading_body": { "value": 1.7 },
+      "leading_tight": { "value": 1.4 }
+    }
+  },
+  "spacing": {
+    "space_xs": { "value": "4px" },
+    "space_sm": { "value": "8px" },
+    "space_md": { "value": "16px" },
+    "space_lg": { "value": "24px" },
+    "space_xl": { "value": "40px" },
+    "screen_h_padding": { "value": "20px" },
+    "verse_gap": { "value": "24px" },
+    "card_padding": { "value": "16px" }
+  },
+  "radius": {
+    "radius_sm": { "value": "4px", "description": "Badges, chips, and filter pills" },
+    "radius_md": { "value": "8px", "description": "Cards, text inputs, settings rows" },
+    "radius_lg": { "value": "12px", "description": "Bottom sheets and continue reading cards" },
+    "radius_full": { "value": "999px", "description": "Constellation nodes and profile avatars" }
+  },
+  "animations": {
+    "durations": {
+      "dur_fast": { "value": "150ms" },
+      "dur_normal": { "value": "250ms" },
+      "dur_slow": { "value": "400ms" }
+    },
+    "curves": {
+      "ease_default": { "value": "cubic-bezier(0.4, 0.0, 0.2, 1)" },
+      "ease_enter": { "value": "cubic-bezier(0.0, 0.0, 0.2, 1)" }
+    },
+    "presets": {
+      "sheet_standard_enter": {
+        "duration": "200ms",
+        "curve": "ease-out",
+        "effect": "slide-up"
+      },
+      "sheet_rare_enter": {
+        "duration": "300ms",
+        "curve": "ease-out",
+        "effect": "slide-up + teal fade-in"
+      },
+      "discovery_row_stagger": {
+        "stagger": "50ms",
+        "effect": "fade-in"
+      },
+      "node_appear": {
+        "duration": "300ms",
+        "curve": "ease-out",
+        "effect": "scale(0.5 -> 1) + fade-in"
+      }
+    }
+  }
+}
