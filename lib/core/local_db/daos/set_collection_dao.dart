@@ -79,9 +79,20 @@ class SetCollectionDao extends DatabaseAccessor<AppDatabase> with _$SetCollectio
     });
   }
 
-  /// Fetch all Expeditions
-  Future<List<Expedition>> getAllExpeditions() {
-    return select(expeditions).get();
+  /// Fetch all Expeditions, seeding them first if empty.
+  Future<List<Expedition>> getAllExpeditions() async {
+    final existing = await select(expeditions).get();
+    if (existing.isEmpty) {
+      await _seedExpeditions();
+      return select(expeditions).get();
+    }
+    return existing;
+  }
+
+  /// Watch all Expeditions (for real-time updates)
+  Stream<List<Expedition>> watchAllExpeditions() {
+    getAllExpeditions(); // Trigger seed check in background
+    return select(expeditions).watch();
   }
 
   /// Update expedition progress parameters
@@ -93,5 +104,72 @@ class SetCollectionDao extends DatabaseAccessor<AppDatabase> with _$SetCollectio
         isCompleted: Value(isCompleted),
       ),
     );
+  }
+
+  Future<void> _seedExpeditions() async {
+    final list = [
+      {
+        'id': 'exp_exodus',
+        'name': 'The Exodus Expedition',
+        'description': 'Follow the journey of Musa (AS) from his infancy to the confrontation with Pharaoh and the parting of the sea.',
+      },
+      {
+        'id': 'exp_wisdom_luqman',
+        'name': 'Wisdom of Luqman',
+        'description': 'Study the core moral and spiritual advice given by Luqman the Wise to his son.',
+      },
+      {
+        'id': 'exp_covenant_abraham',
+        'name': 'The Covenant of Abraham',
+        'description': 'Trace Ibrahim\'s (AS) search for truth, his challenges with his people, and the building of the Kaaba.',
+      },
+      {
+        'id': 'exp_patience_triumph',
+        'name': 'Patience and Triumph',
+        'description': 'Read the complete story of Yusuf (AS), exemplifying the transition from deep adversity to high authority.',
+      },
+      {
+        'id': 'exp_sleepers_signs',
+        'name': 'The Sleepers and the Signs',
+        'description': 'Explore the story of the Companions of the Cave, Al-Khidr, and Dhul-Qarnayn.',
+      },
+      {
+        'id': 'exp_creation_garden',
+        'name': 'The Creation and the Garden',
+        'description': 'Ponder the creation of Adam (AS), the prostration of the angels, and the descent to Earth.',
+      },
+      {
+        'id': 'exp_ark_salvation',
+        'name': 'The Ark of Salvation',
+        'description': 'Follow Nuh\'s (AS) persistent calling, the construction of the Ark, and the division between disbelief and salvation.',
+      },
+      {
+        'id': 'exp_kingdom_grace',
+        'name': 'The Kingdom of Grace',
+        'description': 'Examine the unique kingdoms granted to Dawud (AS) and Sulaiman (AS) and their gratitude to Allah.',
+      },
+      {
+        'id': 'exp_pure_birth',
+        'name': 'The Pure Birth',
+        'description': 'Ponder the miraculous births of Yahya (AS) and Isa (AS) to Maryam (AS).',
+      },
+      {
+        'id': 'exp_call_monotheism',
+        'name': 'The Call of Monotheism',
+        'description': 'Study the instructions and character traits commanded to the Prophet Muhammad ﷺ.',
+      },
+    ];
+
+    for (final item in list) {
+      await into(expeditions).insert(
+        ExpeditionsCompanion.insert(
+          id: item['id']!,
+          name: item['name']!,
+          description: Value(item['description']!),
+          progress: const Value(0.0),
+          isCompleted: const Value(false),
+        ),
+      );
+    }
   }
 }

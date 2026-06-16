@@ -1,1 +1,1323 @@
-[]
+{
+  "characters": [
+    {
+      "id": "char_adam",
+      "name": "Adam (AS)",
+      "type": "prophet",
+      "description": "The first human and prophet created by Allah, who dwelt in the Garden before being placed on Earth as its trustee.",
+      "trigger_verses": [
+        "2:30",
+        "2:31",
+        "2:33",
+        "2:35",
+        "7:19"
+      ],
+      "relations": [
+        "char_hawwa"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_nuh",
+      "name": "Nuh (Noah) (AS)",
+      "type": "prophet",
+      "description": "A major prophet sent to warn his people of disbelief, who built the Ark under divine guidance to survive the Flood.",
+      "trigger_verses": [
+        "7:59",
+        "11:25",
+        "23:23",
+        "26:105",
+        "71:1"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_ibrahim",
+      "name": "Ibrahim (Abraham) (AS)",
+      "type": "prophet",
+      "description": "The patriarch of monotheism and close friend of Allah, who built the Kaaba and is the ancestor of many prophets.",
+      "trigger_verses": [
+        "2:124",
+        "14:35",
+        "37:99"
+      ],
+      "relations": [
+        "char_ismail",
+        "char_ishaq",
+        "char_lut",
+        "char_sarah",
+        "char_hajar"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_ismail",
+      "name": "Ismail (Ishmael) (AS)",
+      "type": "prophet",
+      "description": "The eldest son of Ibrahim (AS), who helped build the Kaaba and willingly submitted to the command of sacrifice.",
+      "trigger_verses": [
+        "2:127",
+        "19:54",
+        "37:102"
+      ],
+      "relations": [
+        "char_ibrahim",
+        "char_hajar"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_ishaq",
+      "name": "Ishaq (Isaac) (AS)",
+      "type": "prophet",
+      "description": "The second son of Ibrahim (AS), born to Sarah (AS), who was announced by angels as a glad tiding and chosen as a prophet.",
+      "trigger_verses": [
+        "11:71",
+        "12:6",
+        "37:112"
+      ],
+      "relations": [
+        "char_ibrahim",
+        "char_sarah",
+        "char_yaqub"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_yaqub",
+      "name": "Yaqub (Jacob) (AS)",
+      "type": "prophet",
+      "description": "The son of Ishaq (AS) and father of Yusuf (AS) and the Tribes of Israel, known for his patience and deep grief.",
+      "trigger_verses": [
+        "12:18",
+        "12:83",
+        "12:96"
+      ],
+      "relations": [
+        "char_ishaq",
+        "char_yusuf"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_yusuf",
+      "name": "Yusuf (Joseph) (AS)",
+      "type": "prophet",
+      "description": "The son of Yaqub (AS) who was cast into a well by his brothers, rose to become a high minister of Egypt, and interpreted dreams.",
+      "trigger_verses": [
+        "12:4",
+        "12:21",
+        "12:55",
+        "12:99"
+      ],
+      "relations": [
+        "char_yaqub"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_musa",
+      "name": "Musa (Moses) (AS)",
+      "type": "prophet",
+      "description": "A major prophet sent to Pharaoh and the Israelites, who was given the Torah and performed miracles such as parting the sea.",
+      "trigger_verses": [
+        "7:104",
+        "20:9",
+        "28:3",
+        "28:30"
+      ],
+      "relations": [
+        "char_harun",
+        "char_mother_musa",
+        "char_firawn"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_harun",
+      "name": "Harun (Aaron) (AS)",
+      "type": "prophet",
+      "description": "The brother of Musa (AS), appointed by Allah as his spokesperson and helper to confront Pharaoh and lead the Israelites.",
+      "trigger_verses": [
+        "7:122",
+        "20:30",
+        "28:34"
+      ],
+      "relations": [
+        "char_musa"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_dawud",
+      "name": "Dawud (David) (AS)",
+      "type": "prophet",
+      "description": "A prophet and king of Israel who defeated Goliath and was given the Psalms, to whom the mountains and birds sang praises.",
+      "trigger_verses": [
+        "2:251",
+        "34:10",
+        "38:17"
+      ],
+      "relations": [
+        "char_sulaiman",
+        "char_talut",
+        "char_jalut"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_sulaiman",
+      "name": "Sulaiman (Solomon) (AS)",
+      "type": "prophet",
+      "description": "A prophet and king who inherited the kingdom of Dawud (AS), gifted with control over the wind, the jinn, and the speech of animals.",
+      "trigger_verses": [
+        "27:15",
+        "27:16",
+        "34:12",
+        "38:30"
+      ],
+      "relations": [
+        "char_dawud",
+        "char_bilqis"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_isa",
+      "name": "Isa (Jesus) (AS)",
+      "type": "prophet",
+      "description": "A major prophet born miraculously to Maryam (AS), sent to the Children of Israel with the Gospel and the ability to perform miracles.",
+      "trigger_verses": [
+        "3:45",
+        "19:30",
+        "61:6"
+      ],
+      "relations": [
+        "char_maryam",
+        "char_zakariyya"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_muhammad",
+      "name": "Muhammad ﷺ",
+      "type": "prophet",
+      "description": "The final prophet and messenger sent to all humanity, through whom the Quran was revealed, concluding the chain of prophethood.",
+      "trigger_verses": [
+        "3:144",
+        "33:40",
+        "47:2",
+        "48:29"
+      ],
+      "relations": [
+        "char_ibrahim",
+        "char_ismail"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_idris",
+      "name": "Idris (Enoch) (AS)",
+      "type": "prophet",
+      "description": "An early prophet mentioned in the Quran as truthful and patient, raised to a high station.",
+      "trigger_verses": [
+        "19:56",
+        "19:57",
+        "21:85"
+      ],
+      "relations": [],
+      "is_rare": true
+    },
+    {
+      "id": "char_hud",
+      "name": "Hud (AS)",
+      "type": "prophet",
+      "description": "A prophet sent to the tribe of 'Aad in the sand dunes (Al-Ahqaf) who warned them against arrogance and idolatry.",
+      "trigger_verses": [
+        "7:65",
+        "11:50",
+        "46:21"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_salih",
+      "name": "Salih (AS)",
+      "type": "prophet",
+      "description": "A prophet sent to the tribe of Thamud in Al-Hijr, whose message was accompanied by the sign of a miraculous she-camel.",
+      "trigger_verses": [
+        "7:73",
+        "11:61",
+        "26:142"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_lut",
+      "name": "Lut (Lot) (AS)",
+      "type": "prophet",
+      "description": "A prophet and nephew of Ibrahim (AS) sent to the cities of Sodom to warn them against their transgressions.",
+      "trigger_verses": [
+        "7:80",
+        "11:77",
+        "26:161",
+        "29:26"
+      ],
+      "relations": [
+        "char_ibrahim"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_shuayb",
+      "name": "Shu'ayb (AS)",
+      "type": "prophet",
+      "description": "A prophet sent to the people of Madyan and the companions of the thicket, warning them to maintain fair weights and measures.",
+      "trigger_verses": [
+        "7:85",
+        "11:84",
+        "26:177",
+        "29:36"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_ayyub",
+      "name": "Ayyub (Job) (AS)",
+      "type": "prophet",
+      "description": "A prophet renowned for his patience and endurance during a severe trial of illness and loss before being healed by Allah.",
+      "trigger_verses": [
+        "4:163",
+        "6:84",
+        "21:83",
+        "38:41"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_yunus",
+      "name": "Yunus (Jonah) (AS)",
+      "type": "prophet",
+      "description": "A prophet who left his people in anger, was swallowed by a whale, and was delivered after praying in the depths of the darkness.",
+      "trigger_verses": [
+        "10:98",
+        "21:87",
+        "37:139",
+        "68:48"
+      ],
+      "relations": [],
+      "is_rare": false
+    },
+    {
+      "id": "char_zakariyya",
+      "name": "Zakariyya (Zechariah) (AS)",
+      "type": "prophet",
+      "description": "A prophet and priest who served in the sanctuary, acted as the guardian of Maryam (AS), and prayed for a righteous heir in his old age.",
+      "trigger_verses": [
+        "3:37",
+        "3:38",
+        "19:2",
+        "21:89"
+      ],
+      "relations": [
+        "char_yahya",
+        "char_maryam"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_yahya",
+      "name": "Yahya (John the Baptist) (AS)",
+      "type": "prophet",
+      "description": "The son of Zakariyya (AS), granted wisdom and devotion from childhood, and announced by the angels as a herald of Isa (AS).",
+      "trigger_verses": [
+        "3:39",
+        "19:7",
+        "19:12",
+        "21:90"
+      ],
+      "relations": [
+        "char_zakariyya",
+        "char_isa"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_ilyas",
+      "name": "Ilyas (Elijah) (AS)",
+      "type": "prophet",
+      "description": "A prophet sent to the people of Baalbek, warning them against worshipping the idol Baal.",
+      "trigger_verses": [
+        "6:85",
+        "37:123",
+        "37:130"
+      ],
+      "relations": [
+        "char_al_yasa"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_al_yasa",
+      "name": "Al-Yasa (Elisha) (AS)",
+      "type": "prophet",
+      "description": "A prophet mentioned alongside other major prophets, chosen and favored above the worlds.",
+      "trigger_verses": [
+        "6:86",
+        "38:48"
+      ],
+      "relations": [
+        "char_ilyas"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_dhul_qarnayn",
+      "name": "Dhul-Qarnayn",
+      "type": "historical_figure",
+      "description": "A powerful king who traveled from the east to the west, established a barrier of iron and copper, and ruled with justice.",
+      "trigger_verses": [
+        "18:83",
+        "18:86",
+        "18:94"
+      ],
+      "relations": [],
+      "is_rare": true
+    },
+    {
+      "id": "char_luqman",
+      "name": "Luqman",
+      "type": "historical_figure",
+      "description": "A wise man who was granted wisdom by Allah, known for the advice he gave his son regarding faith, modesty, and conduct.",
+      "trigger_verses": [
+        "31:12",
+        "31:13",
+        "31:17"
+      ],
+      "relations": [],
+      "is_rare": true
+    },
+    {
+      "id": "char_talut",
+      "name": "Talut (Saul)",
+      "type": "historical_figure",
+      "description": "A righteous king appointed by Allah over Israel, who led the army against Goliath and tested his soldiers at the river.",
+      "trigger_verses": [
+        "2:247",
+        "2:249"
+      ],
+      "relations": [
+        "char_dawud",
+        "char_jalut"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_uzayr",
+      "name": "Uzayr (Ezra) [VERIFY]",
+      "type": "historical_figure",
+      "description": "A figure mentioned once in the Quran as being claimed as the son of God by a group of Jews, traditionally identified as Ezra.",
+      "trigger_verses": [
+        "9:30 [VERIFY]"
+      ],
+      "relations": [],
+      "is_rare": true
+    },
+    {
+      "id": "char_hawwa",
+      "name": "Hawwa (Eve) (AS) [TRADITIONAL NAME]",
+      "type": "matriarch",
+      "description": "Known in Islamic tradition as Hawwa, she is referenced in the Quran as the wife and companion of Adam (AS) in the Garden and on Earth.",
+      "trigger_verses": [
+        "2:35",
+        "7:19",
+        "20:117"
+      ],
+      "relations": [
+        "char_adam"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_sarah",
+      "name": "Sarah (AS) [TRADITIONAL NAME]",
+      "type": "matriarch",
+      "description": "Known in Islamic tradition as Sarah, she is referenced in the Quran as the wife of Ibrahim (AS) who received the glad tidings of the birth of Ishaq (AS) and Yaqub (AS).",
+      "trigger_verses": [
+        "11:71",
+        "11:72",
+        "51:29"
+      ],
+      "relations": [
+        "char_ibrahim",
+        "char_ishaq",
+        "char_yaqub"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_hajar",
+      "name": "Hajar (AS) [TRADITIONAL NAME]",
+      "type": "matriarch",
+      "description": "Known in Islamic tradition as Hajar, she was the wife of Ibrahim (AS) and the mother of Ismail (AS), associated with the migration to the valley of Makkah.",
+      "trigger_verses": [
+        "14:37 [VERIFY]"
+      ],
+      "relations": [
+        "char_ibrahim",
+        "char_ismail"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_maryam",
+      "name": "Maryam (Mary) (AS)",
+      "type": "matriarch",
+      "description": "The mother of Isa (AS), honored as a chosen woman purified above all women, and the only woman explicitly named in the Quran.",
+      "trigger_verses": [
+        "3:36",
+        "3:42",
+        "19:16",
+        "19:27",
+        "66:12"
+      ],
+      "relations": [
+        "char_isa",
+        "char_zakariyya"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_mother_musa",
+      "name": "Mother of Musa (RA)",
+      "type": "matriarch",
+      "description": "The mother of Musa (AS) and Harun (AS), who was inspired by Allah to place her infant son in a chest in the river to save him from Pharaoh.",
+      "trigger_verses": [
+        "20:38",
+        "28:7",
+        "28:10",
+        "28:13"
+      ],
+      "relations": [
+        "char_musa",
+        "char_harun"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_wife_imran",
+      "name": "Wife of Imran (RA)",
+      "type": "matriarch",
+      "description": "The mother of Maryam (AS), who dedicated her unborn child to the service of Allah and placed her under the guardianship of Zakariyya (AS).",
+      "trigger_verses": [
+        "3:35",
+        "3:36"
+      ],
+      "relations": [
+        "char_maryam",
+        "char_zakariyya"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_bilqis",
+      "name": "Bilqis (Queen of Sheba) [TRADITIONAL NAME]",
+      "type": "matriarch",
+      "description": "The ruler of Saba (Sheba) who worshipped the sun but later submitted to Allah after interacting with Sulaiman (AS) and witnessing his signs.",
+      "trigger_verses": [
+        "27:23",
+        "27:32",
+        "27:42",
+        "27:44"
+      ],
+      "relations": [
+        "char_sulaiman"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_firawn",
+      "name": "Fir'awn (Pharaoh)",
+      "type": "historical_figure",
+      "description": "The tyrannical ruler of Egypt during the time of Musa (AS), who rejected the message of monotheism and drowned in the sea.",
+      "trigger_verses": [
+        "2:49",
+        "7:103",
+        "20:24",
+        "28:4",
+        "43:51"
+      ],
+      "relations": [
+        "char_musa",
+        "char_harun"
+      ],
+      "is_rare": false
+    },
+    {
+      "id": "char_imran",
+      "name": "Imran (Amram) (AS) [TRADITIONAL NAME]",
+      "type": "historical_figure",
+      "description": "Known in Islamic tradition as the father of Maryam (AS) and the head of the household of Imran honored in the Quran.",
+      "trigger_verses": [
+        "3:33",
+        "66:12"
+      ],
+      "relations": [
+        "char_maryam",
+        "char_wife_imran"
+      ],
+      "is_rare": true
+    },
+    {
+      "id": "char_jalut",
+      "name": "Jalut (Goliath)",
+      "type": "historical_figure",
+      "description": "The formidable warrior and leader of the Philistines who was slain in battle by a young Dawud (AS).",
+      "trigger_verses": [
+        "2:249",
+        "2:250",
+        "2:251"
+      ],
+      "relations": [
+        "char_talut",
+        "char_dawud"
+      ],
+      "is_rare": true
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc_egypt",
+      "name": "Egypt (Miṣr)",
+      "trigger_verses": [
+        "2:61",
+        "10:87",
+        "12:21",
+        "12:99",
+        "43:51"
+      ],
+      "coordinates_hint": "North Africa",
+      "description": "A historic land in North Africa ruled by Pharaonic dynasties, serving as the primary setting for the narrative of Yusuf (AS) and the struggle of Musa (AS) to free the Israelites."
+    },
+    {
+      "id": "loc_mount_sinai",
+      "name": "Mount Sinai (Ṭūr Sīnā')",
+      "trigger_verses": [
+        "2:63",
+        "23:20",
+        "28:29",
+        "52:1",
+        "95:2"
+      ],
+      "coordinates_hint": "North Africa",
+      "description": "The sacred mountain in the Sinai Peninsula where Musa (AS) spoke directly with Allah and received the Tablets containing the Ten Commandments."
+    },
+    {
+      "id": "loc_cave_companions",
+      "name": "The Cave of the Companions (Ashābul Kahf)",
+      "trigger_verses": [
+        "18:9 [VERIFY]",
+        "18:16 [VERIFY]",
+        "18:17 [VERIFY]",
+        "18:25 [VERIFY]"
+      ],
+      "coordinates_hint": "Levant",
+      "description": "The legendary cave in which a group of monotheistic youths slept for centuries under divine protection to escape persecution."
+    },
+    {
+      "id": "loc_madyan",
+      "name": "Madyan (Madyan)",
+      "trigger_verses": [
+        "7:85",
+        "11:84",
+        "20:40",
+        "28:22",
+        "29:36"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "A geographical region in northwest Arabia near the Red Sea, inhabited by the people of Prophet Shu'ayb (AS) and visited by Musa (AS) during his exile."
+    },
+    {
+      "id": "loc_babylon",
+      "name": "Babylon (Bābil)",
+      "trigger_verses": [
+        "2:102"
+      ],
+      "coordinates_hint": "Mesopotamia",
+      "description": "An ancient Mesopotamian city mentioned as the location where the angels Harut and Marut taught people the trials of magic and warning against its misuse."
+    },
+    {
+      "id": "loc_sodom",
+      "name": "Sodom (Al-Mu'tafikah) [TRADITIONAL NAME]",
+      "trigger_verses": [
+        "9:70 [VERIFY]",
+        "21:74 [VERIFY]",
+        "29:31 [VERIFY]",
+        "53:53 [VERIFY]",
+        "69:9 [VERIFY]"
+      ],
+      "coordinates_hint": "Levant",
+      "description": "The traditional name for the cities of the Plain inhabited by the people of Lut (AS), which were overturned and destroyed as a consequence of their persistent transgressions."
+    },
+    {
+      "id": "loc_saba",
+      "name": "Saba' (Saba')",
+      "trigger_verses": [
+        "27:22",
+        "34:15"
+      ],
+      "coordinates_hint": "Yemen",
+      "description": "An ancient South Arabian kingdom in modern-day Yemen, renowned for its wealth, agricultural prosperity, and the rule of the Queen of Sheba before her conversion."
+    },
+    {
+      "id": "loc_aad_lands",
+      "name": "Lands of 'Aad (Al-Aḥqāf)",
+      "trigger_verses": [
+        "46:21",
+        "54:18 [VERIFY]",
+        "89:6 [VERIFY]"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "The desert region of Al-Ahqaf in southern Arabia where the high-built pillars of the tribe of 'Aad were destroyed by a devastating wind storm."
+    },
+    {
+      "id": "loc_thamud_lands",
+      "name": "Lands of Thamūd (Al-Ḥijr)",
+      "trigger_verses": [
+        "15:80",
+        "27:52 [VERIFY]",
+        "89:9 [VERIFY]"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "The ancient stone-cut dwellings of Al-Hijr (Mada'in Salih) in northwest Arabia, built by the tribe of Thamud who were destroyed after killing the sacred she-camel."
+    },
+    {
+      "id": "loc_jerusalem",
+      "name": "Jerusalem (Al-Aqṣā / Bayt al-Maqdis) [TRADITIONAL NAME]",
+      "trigger_verses": [
+        "2:143 [VERIFY]",
+        "17:1 [VERIFY]",
+        "21:71 [VERIFY]"
+      ],
+      "coordinates_hint": "Levant",
+      "description": "The sacred city housing the Al-Aqsa Mosque, which served as the first Qibla (direction of prayer) and the destination of the Prophet Muhammad's (PBUH) Night Journey."
+    },
+    {
+      "id": "loc_makkah",
+      "name": "Makkah (Makkah / Bakkah)",
+      "trigger_verses": [
+        "3:96",
+        "48:24",
+        "2:125 [VERIFY]",
+        "95:3 [VERIFY]"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "The holiest city in Islam, home to the Kaaba, the birthplace of Prophet Muhammad (PBUH), and the center of the annual Hajj pilgrimage."
+    },
+    {
+      "id": "loc_madinah",
+      "name": "Madinah (Al-Madīnah / Yathrib)",
+      "trigger_verses": [
+        "9:101",
+        "9:120",
+        "33:13",
+        "63:8"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "The sanctuary city in western Arabia that welcomed the Prophet Muhammad (PBUH) and the early Muslims after the Hijrah, serving as the first capital of the Islamic state."
+    },
+    {
+      "id": "loc_badr",
+      "name": "Badr (Badr)",
+      "trigger_verses": [
+        "3:123"
+      ],
+      "coordinates_hint": "Arabian Peninsula",
+      "description": "A valley located southwest of Madinah, serving as the historic site of the first major battle in Islamic history where the early Muslims achieved a decisive victory."
+    }
+  ],
+  "collections": {
+    "animals": [
+      {
+        "id": "anim_bee",
+        "name": "The Bee (Al-Naḥl)",
+        "trigger_verses": [
+          "16:68",
+          "16:69"
+        ],
+        "description": "An insect highlighted in the Quran for its divine inspiration to build complex hives and produce honey containing healing properties for humanity."
+      },
+      {
+        "id": "anim_ant",
+        "name": "The Ant (Al-Naml)",
+        "trigger_verses": [
+          "27:18"
+        ],
+        "description": "A small social insect mentioned in the narrative of Prophet Sulaiman (AS), whose warning to its colony was overheard and understood by the king."
+      },
+      {
+        "id": "anim_elephant",
+        "name": "The Elephant (Al-Fīl)",
+        "trigger_verses": [
+          "105:1"
+        ],
+        "description": "A large mammal utilized by the army of Abraha in his failed military expedition to demolish the Kaaba, which was repelled by divine intervention."
+      },
+      {
+        "id": "anim_whale",
+        "name": "The Whale (Al-Ḥūt)",
+        "trigger_verses": [
+          "37:142",
+          "68:48"
+        ],
+        "description": "A large sea creature that swallowed Prophet Yunus (AS) and kept him alive within its belly until his repentance and safe release onto the shore."
+      },
+      {
+        "id": "anim_cow",
+        "name": "The Cow (Al-Baqarah)",
+        "trigger_verses": [
+          "2:67",
+          "2:68",
+          "2:69",
+          "2:71"
+        ],
+        "description": "The domestic animal ordered to be sacrificed by Allah to resolve a murder mystery among the Israelites, giving its name to the second and longest chapter of the Quran."
+      },
+      {
+        "id": "anim_she_camel",
+        "name": "The She-Camel of Salih (Nāqat Ṣāliḥ)",
+        "trigger_verses": [
+          "7:73",
+          "11:64",
+          "17:59",
+          "26:155"
+        ],
+        "description": "A miraculous camel brought forth from a rock as a clear sign for the tribe of Thamud, who were subsequently destroyed for harming her."
+      },
+      {
+        "id": "anim_spider",
+        "name": "The Spider (Al-ʿAnkabūt)",
+        "trigger_verses": [
+          "29:41"
+        ],
+        "description": "A small arachnid cited metaphorically in the Quran to illustrate the fragility of seeking protectors other than Allah, comparing them to a spider's fragile web."
+      },
+      {
+        "id": "anim_hoopoe",
+        "name": "The Hoopoe (Al-Hudhud)",
+        "trigger_verses": [
+          "27:20"
+        ],
+        "description": "A crested bird that served as a scout and messenger for Prophet Sulaiman (AS), bringing critical intelligence about the sun-worshiping kingdom of Saba'."
+      },
+      {
+        "id": "anim_dog_cave",
+        "name": "The Dog of the Cave (Kalb Aṣḥābil Kahf)",
+        "trigger_verses": [
+          "18:18",
+          "18:22"
+        ],
+        "description": "The faithful canine companion that slept at the entrance of the cave alongside the monotheistic youths, guarding them for over three centuries."
+      },
+      {
+        "id": "anim_wolf",
+        "name": "The Wolf (Al-Dhi'b)",
+        "trigger_verses": [
+          "12:13",
+          "12:14",
+          "12:17"
+        ],
+        "description": "A predatory canine falsely accused by the brothers of Yusuf (AS) of having devoured him when they abandoned him in the well."
+      }
+    ],
+    "plants": [
+      {
+        "id": "plant_olive",
+        "name": "Olive (Al-Zaytūn)",
+        "trigger_verses": [
+          "6:99",
+          "16:11",
+          "24:35",
+          "95:1"
+        ],
+        "description": "A highly valued tree native to the Mediterranean basin, praised in the Quran for its blessed oil and referenced metaphorically in the Verse of Light."
+      },
+      {
+        "id": "plant_fig",
+        "name": "Fig (Al-Tīn)",
+        "trigger_verses": [
+          "95:1"
+        ],
+        "description": "A sweet fruit-bearing tree native to the Middle East, sworn by Allah in Surah At-Tin as a sign of divine provision and health benefits."
+      },
+      {
+        "id": "plant_date_palm",
+        "name": "Date Palm (Al-Nakhl)",
+        "trigger_verses": [
+          "6:99",
+          "19:23",
+          "19:25",
+          "55:11"
+        ],
+        "description": "A vital desert tree producing highly nutritious fruit, mentioned as a sign of life-giving rain and a source of sustenance for Maryam (AS) during childbirth."
+      },
+      {
+        "id": "plant_pomegranate",
+        "name": "Pomegranate (Al-Rummān)",
+        "trigger_verses": [
+          "6:99",
+          "6:141",
+          "55:68"
+        ],
+        "description": "A ruby-seeded fruit cited as a sign of divine craftsmanship on Earth and described as one of the blessed fruits found in the gardens of Paradise."
+      },
+      {
+        "id": "plant_grapes",
+        "name": "Grapes (Al-Aʿnāb)",
+        "trigger_verses": [
+          "2:266",
+          "6:99",
+          "17:91",
+          "78:32"
+        ],
+        "description": "A trailing vine crop producing sweet clusters of fruit, frequently mentioned in the Quran as an example of worldly blessings and divine creation."
+      },
+      {
+        "id": "plant_zaqqum",
+        "name": "Zaqqum (Al-Zaqqūm)",
+        "trigger_verses": [
+          "17:60",
+          "37:62",
+          "44:43",
+          "56:52"
+        ],
+        "description": "A thorny, bitter tree mentioned in the Quran that grows from the depths of Hell, serving as the painful food source for the dwellers of the Fire."
+      }
+    ],
+    "foods": [
+      {
+        "id": "food_manna_quail",
+        "name": "Manna and Quail (Al-Manna wa al-Salwā)",
+        "trigger_verses": [
+          "2:57",
+          "7:160",
+          "20:80"
+        ],
+        "description": "A divine food supply consisting of sweet dew (manna) and migratory birds (quail) provided to the Israelites during their years of wandering in the Sinai desert."
+      },
+      {
+        "id": "food_honey",
+        "name": "Honey (Al-ʿAsal)",
+        "trigger_verses": [
+          "16:69 [VERIFY]",
+          "47:15"
+        ],
+        "description": "A sweet, viscous liquid produced by bees, highlighted in the Quran for its nutritional value, healing qualities, and as a river in Paradise."
+      }
+    ]
+  },
+  "stories": [
+    {
+      "id": "story_yusuf",
+      "name": "The Story of Yusuf",
+      "total_milestones": 20,
+      "related_surah": 12,
+      "completion_verses": [
+        "12:4-102"
+      ]
+    },
+    {
+      "id": "story_musa_firawn",
+      "name": "The Story of Musa & Firawn",
+      "total_milestones": 50,
+      "related_surah": 28,
+      "completion_verses": [
+        "2:49-60",
+        "7:103-137",
+        "10:75-92",
+        "20:9-98",
+        "26:10-68",
+        "28:3-46"
+      ]
+    },
+    {
+      "id": "story_cave_companions",
+      "name": "The Story of the Companions of the Cave",
+      "total_milestones": 8,
+      "related_surah": 18,
+      "completion_verses": [
+        "18:9-26"
+      ]
+    },
+    {
+      "id": "story_ibrahim_sacrifice",
+      "name": "The Story of Ibrahim's Sacrifice",
+      "total_milestones": 10,
+      "related_surah": 37,
+      "completion_verses": [
+        "2:124-128",
+        "22:26-30",
+        "37:99-113"
+      ]
+    },
+    {
+      "id": "story_nuh_flood",
+      "name": "The Story of Nuh's Flood",
+      "total_milestones": 15,
+      "related_surah": 11,
+      "completion_verses": [
+        "7:59-64",
+        "11:25-49",
+        "23:23-30",
+        "26:105-122",
+        "29:14-15",
+        "71:1-28"
+      ]
+    }
+  ],
+  "themes": [
+    {
+      "id": "theme_patience",
+      "name": "Patience (Ṣabr)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "2:153", "xp_reward": 50},
+        {"verse": "2:155", "xp_reward": 10},
+        {"verse": "3:200", "xp_reward": 50},
+        {"verse": "11:49", "xp_reward": 50},
+        {"verse": "11:115", "xp_reward": 50},
+        {"verse": "12:18", "xp_reward": 20},
+        {"verse": "12:83", "xp_reward": 20},
+        {"verse": "16:127", "xp_reward": 50},
+        {"verse": "18:67", "xp_reward": 20},
+        {"verse": "28:54", "xp_reward": 10},
+        {"verse": "31:17", "xp_reward": 50},
+        {"verse": "37:102", "xp_reward": 20},
+        {"verse": "38:17", "xp_reward": 50},
+        {"verse": "41:35", "xp_reward": 10},
+        {"verse": "46:35", "xp_reward": 50},
+        {"verse": "70:5", "xp_reward": 50},
+        {"verse": "90:17", "xp_reward": 10},
+        {"verse": "103:3", "xp_reward": 10}
+      ]
+    },
+    {
+      "id": "theme_gratitude",
+      "name": "Gratitude (Shukr)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "2:152", "xp_reward": 50},
+        {"verse": "2:172", "xp_reward": 50},
+        {"verse": "14:7", "xp_reward": 50},
+        {"verse": "16:114", "xp_reward": 50},
+        {"verse": "16:121", "xp_reward": 20},
+        {"verse": "27:19", "xp_reward": 20},
+        {"verse": "27:40", "xp_reward": 20},
+        {"verse": "31:12", "xp_reward": 50},
+        {"verse": "31:14", "xp_reward": 50},
+        {"verse": "34:13", "xp_reward": 50},
+        {"verse": "34:15", "xp_reward": 50},
+        {"verse": "39:7", "xp_reward": 50},
+        {"verse": "39:66", "xp_reward": 50},
+        {"verse": "46:15", "xp_reward": 20},
+        {"verse": "54:35", "xp_reward": 10}
+      ]
+    },
+    {
+      "id": "theme_justice",
+      "name": "Justice (ʿAdl)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "4:58", "xp_reward": 50},
+        {"verse": "4:135", "xp_reward": 50},
+        {"verse": "5:8", "xp_reward": 50},
+        {"verse": "5:42", "xp_reward": 50},
+        {"verse": "6:152", "xp_reward": 50},
+        {"verse": "7:29", "xp_reward": 50},
+        {"verse": "16:76", "xp_reward": 10},
+        {"verse": "16:90", "xp_reward": 50},
+        {"verse": "38:22", "xp_reward": 20},
+        {"verse": "38:26", "xp_reward": 50},
+        {"verse": "42:15", "xp_reward": 50},
+        {"verse": "49:9", "xp_reward": 50},
+        {"verse": "55:9", "xp_reward": 50},
+        {"verse": "57:25", "xp_reward": 50},
+        {"verse": "60:8", "xp_reward": 50}
+      ]
+    },
+    {
+      "id": "theme_mercy",
+      "name": "Mercy (Raḥmah)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "1:1", "xp_reward": 10},
+        {"verse": "6:12", "xp_reward": 50},
+        {"verse": "6:54", "xp_reward": 50},
+        {"verse": "7:56", "xp_reward": 50},
+        {"verse": "7:156", "xp_reward": 20},
+        {"verse": "12:92", "xp_reward": 20},
+        {"verse": "15:49", "xp_reward": 50},
+        {"verse": "18:10", "xp_reward": 20},
+        {"verse": "21:107", "xp_reward": 50},
+        {"verse": "25:63", "xp_reward": 10},
+        {"verse": "27:46", "xp_reward": 20},
+        {"verse": "30:21", "xp_reward": 50},
+        {"verse": "39:53", "xp_reward": 50},
+        {"verse": "48:29", "xp_reward": 10},
+        {"verse": "90:17", "xp_reward": 10}
+      ]
+    },
+    {
+      "id": "theme_tawakkul",
+      "name": "Trust in Allah (Tawakkul)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "3:159", "xp_reward": 50},
+        {"verse": "3:173", "xp_reward": 20},
+        {"verse": "4:81", "xp_reward": 50},
+        {"verse": "8:2", "xp_reward": 10},
+        {"verse": "8:49", "xp_reward": 50},
+        {"verse": "9:51", "xp_reward": 50},
+        {"verse": "9:129", "xp_reward": 50},
+        {"verse": "11:88", "xp_reward": 20},
+        {"verse": "12:67", "xp_reward": 20},
+        {"verse": "14:12", "xp_reward": 20},
+        {"verse": "25:58", "xp_reward": 50},
+        {"verse": "27:79", "xp_reward": 50},
+        {"verse": "33:3", "xp_reward": 50},
+        {"verse": "39:38", "xp_reward": 50},
+        {"verse": "65:3", "xp_reward": 50}
+      ]
+    },
+    {
+      "id": "theme_repentance",
+      "name": "Repentance (Tawbah)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "2:222", "xp_reward": 50},
+        {"verse": "3:135", "xp_reward": 10},
+        {"verse": "4:17", "xp_reward": 50},
+        {"verse": "5:39", "xp_reward": 50},
+        {"verse": "5:74", "xp_reward": 50},
+        {"verse": "7:143", "xp_reward": 20},
+        {"verse": "7:153", "xp_reward": 50},
+        {"verse": "9:104", "xp_reward": 50},
+        {"verse": "9:118", "xp_reward": 20},
+        {"verse": "11:3", "xp_reward": 50},
+        {"verse": "11:90", "xp_reward": 50},
+        {"verse": "20:82", "xp_reward": 50},
+        {"verse": "24:31", "xp_reward": 50},
+        {"verse": "25:70", "xp_reward": 50},
+        {"verse": "66:8", "xp_reward": 50}
+      ]
+    },
+    {
+      "id": "theme_charity",
+      "name": "Charity (Ṣadaqah)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "2:215", "xp_reward": 50},
+        {"verse": "2:261", "xp_reward": 50},
+        {"verse": "2:263", "xp_reward": 50},
+        {"verse": "2:264", "xp_reward": 50},
+        {"verse": "2:271", "xp_reward": 50},
+        {"verse": "2:274", "xp_reward": 10},
+        {"verse": "3:92", "xp_reward": 50},
+        {"verse": "3:134", "xp_reward": 10},
+        {"verse": "4:114", "xp_reward": 10},
+        {"verse": "9:60", "xp_reward": 50},
+        {"verse": "9:103", "xp_reward": 50},
+        {"verse": "34:39", "xp_reward": 50},
+        {"verse": "35:29", "xp_reward": 10},
+        {"verse": "57:18", "xp_reward": 50},
+        {"verse": "63:10", "xp_reward": 50}
+      ]
+    },
+    {
+      "id": "theme_humility",
+      "name": "Humility (Tawāḍuʿ)",
+      "levels": [
+        {"level": 1, "xp_required": 100},
+        {"level": 2, "xp_required": 250},
+        {"level": 3, "xp_required": 500}
+      ],
+      "xp_triggers": [
+        {"verse": "5:54", "xp_reward": 10},
+        {"verse": "11:23", "xp_reward": 10},
+        {"verse": "15:88", "xp_reward": 50},
+        {"verse": "17:24", "xp_reward": 50},
+        {"verse": "17:37", "xp_reward": 50},
+        {"verse": "22:34", "xp_reward": 50},
+        {"verse": "22:35", "xp_reward": 10},
+        {"verse": "25:63", "xp_reward": 50},
+        {"verse": "26:215", "xp_reward": 50},
+        {"verse": "28:83", "xp_reward": 50},
+        {"verse": "31:18", "xp_reward": 50},
+        {"verse": "31:19", "xp_reward": 50},
+        {"verse": "32:15", "xp_reward": 10},
+        {"verse": "33:35", "xp_reward": 10},
+        {"verse": "57:16", "xp_reward": 50}
+      ]
+    }
+  ],
+  "sets_and_combos": [
+    {
+      "id": "set_exodus",
+      "name": "The Exodus",
+      "required_discoveries": [
+        "char_musa",
+        "char_harun",
+        "char_firawn",
+        "loc_egypt",
+        "loc_mount_sinai"
+      ],
+      "reward_title": "Explorer of the Exodus",
+      "is_hidden": false
+    },
+    {
+      "id": "set_patriarch_family",
+      "name": "Family of Ibrahim",
+      "required_discoveries": [
+        "char_ibrahim",
+        "char_sarah",
+        "char_hajar",
+        "char_ismail",
+        "char_ishaq",
+        "char_yaqub"
+      ],
+      "reward_title": "Inheritor of the Covenant",
+      "is_hidden": false
+    },
+    {
+      "id": "set_solomon_sheba",
+      "name": "The Kingdom of Solomon & Sheba",
+      "required_discoveries": [
+        "char_sulaiman",
+        "char_bilqis",
+        "loc_saba",
+        "anim_hoopoe"
+      ],
+      "reward_title": "Witness of the Great Throne",
+      "is_hidden": false
+    },
+    {
+      "id": "set_sacred_lands",
+      "name": "Sacred Sanctuary Lands",
+      "required_discoveries": [
+        "loc_makkah",
+        "loc_madinah",
+        "loc_jerusalem"
+      ],
+      "reward_title": "Guardian of the Three Sanctuaries",
+      "is_hidden": false
+    },
+    {
+      "id": "set_exemplars_patience",
+      "name": "Exemplars of Patience",
+      "required_discoveries": [
+        "char_ayyub",
+        "char_yaqub",
+        "char_yusuf",
+        "story_yusuf"
+      ],
+      "reward_title": "Sabirun (The Patient)",
+      "is_hidden": false
+    },
+    {
+      "id": "set_companions_cave",
+      "name": "Companions of the Cave",
+      "required_discoveries": [
+        "story_cave_companions",
+        "loc_cave_companions",
+        "anim_dog_cave"
+      ],
+      "reward_title": "Seeker of the Sleepers",
+      "is_hidden": true
+    },
+    {
+      "id": "set_lost_nations",
+      "name": "The Lost Nations",
+      "required_discoveries": [
+        "char_hud",
+        "char_salih",
+        "char_lut",
+        "loc_aad_lands",
+        "loc_thamud_lands",
+        "loc_sodom"
+      ],
+      "reward_title": "Historian of the Overturned Lands",
+      "is_hidden": true
+    },
+    {
+      "id": "set_miraculous_animals",
+      "name": "Signs of Nature",
+      "required_discoveries": [
+        "anim_she_camel",
+        "anim_whale",
+        "anim_elephant"
+      ],
+      "reward_title": "Observer of Miracles",
+      "is_hidden": true
+    },
+    {
+      "id": "set_garden_paradise",
+      "name": "Fruits of the Earth",
+      "required_discoveries": [
+        "plant_olive",
+        "plant_fig",
+        "plant_date_palm",
+        "plant_pomegranate",
+        "plant_grapes",
+        "food_honey"
+      ],
+      "reward_title": "Dweller of the Heavenly Gardens",
+      "is_hidden": true
+    },
+    {
+      "id": "set_mother_child",
+      "name": "Motherly Devotion",
+      "required_discoveries": [
+        "char_maryam",
+        "char_isa",
+        "char_mother_musa",
+        "char_musa",
+        "char_wife_imran"
+      ],
+      "reward_title": "Keeper of Pure Devotion",
+      "is_hidden": true
+    }
+  ]
+}

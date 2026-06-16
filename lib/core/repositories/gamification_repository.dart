@@ -23,6 +23,7 @@ abstract class GamificationRepository {
   Future<List<Collection>> getAllCollections();
   Future<void> evaluateCollectionsCompletion();
   Future<List<Expedition>> getAllExpeditions();
+  Stream<List<Expedition>> watchAllExpeditions();
   Future<void> updateExpeditionProgress(String expeditionId, double progress);
 }
 
@@ -68,6 +69,9 @@ class GamificationRepositoryImpl implements GamificationRepository {
 
   @override
   Future<List<Expedition>> getAllExpeditions() => _db.setCollectionDao.getAllExpeditions();
+
+  @override
+  Stream<List<Expedition>> watchAllExpeditions() => _db.setCollectionDao.watchAllExpeditions();
 
   @override
   Future<void> updateExpeditionProgress(String expeditionId, double progress) =>

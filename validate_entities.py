@@ -59,7 +59,7 @@ def collect_all_ids(data):
         else:
             id_map[entity_id] = (section_name, entry)
 
-    entities = data.get("entities", {})
+    entities = data.get("entities", data)
 
     for char in entities.get("characters", []):
         register("entities.characters", char)
@@ -158,7 +158,7 @@ def validate_all_verse_refs(data):
             if not ok:
                 errors.append((f"{breadcrumb}[{i}] = '{ref}'", reason))
 
-    entities = data.get("entities", {})
+    entities = data.get("entities", data)
 
     for i, char in enumerate(entities.get("characters", [])):
         if "trigger_verses" in char:
@@ -194,7 +194,7 @@ def validate_references(data, id_map):
     """Check relations[] and required_discoveries[] point to real IDs."""
     dangling = []
 
-    entities = data.get("entities", {})
+    entities = data.get("entities", data)
 
     for i, char in enumerate(entities.get("characters", [])):
         for rel in char.get("relations", []):
@@ -234,7 +234,7 @@ def validate_required_fields(data):
         "sets_and_combos": ["id", "name", "required_discoveries", "reward_title", "is_hidden"],
     }
 
-    entities = data.get("entities", {})
+    entities = data.get("entities", data)
     sections = {
         "entities.characters": entities.get("characters", []),
         "entities.locations": entities.get("locations", []),

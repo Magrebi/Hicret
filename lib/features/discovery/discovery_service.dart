@@ -73,6 +73,9 @@ class DiscoveryService {
       // 7. Update dynamic co-occurrence constellation edges
       await _updateConstellationEdges(unlocks, surah);
 
+      // 7.5. Update reading routes (expeditions) progress
+      await _updateExpeditionProgress(surah, ayah);
+
       // 8. Increment user read count in singleton Progress table
       await _updateUserProgress();
 
@@ -331,5 +334,67 @@ class DiscoveryService {
     return surah == range.surahNum &&
         ayah >= range.ayahStart &&
         ayah <= range.ayahEnd;
+  }
+
+  /// Private transaction helper to recalculate progress for all expeditions affected by the read verse.
+  Future<void> _updateExpeditionProgress(int surah, int ayah) async {
+    final Map<String, List<List<int>>> routes = {
+      'exp_exodus': [[28, 3, 46], [20, 9, 98]],
+      'exp_wisdom_luqman': [[31, 12, 19]],
+      'exp_covenant_abraham': [[6, 74, 83], [2, 124, 128], [37, 99, 113]],
+      'exp_patience_triumph': [[12, 4, 101]],
+      'exp_sleepers_signs': [[18, 9, 26], [18, 60, 82], [18, 83, 98]],
+      'exp_creation_garden': [[2, 30, 39], [7, 11, 25]],
+      'exp_ark_salvation': [[11, 25, 49], [71, 1, 28]],
+      'exp_kingdom_grace': [[27, 15, 44], [38, 17, 40]],
+      'exp_pure_birth': [[19, 1, 36], [3, 33, 47]],
+      'exp_call_monotheism': [[96, 1, 5], [73, 1, 10], [68, 1, 4]],
+    };
+
+    for (final entry in routes.entries) {
+      final expId = entry.key;
+      final ranges = entry.value;
+
+      bool affected = false;
+      for (final r in ranges) {
+        if (surah == r[0] && ayah >= r[1] && ayah <= r[2]) {
+          affected = true;
+          break;
+        }
+      }
+
+      if (affected) {
+        int totalRead = 0;
+        int totalVersesInRanges = 0;
+
+        for (final r in ranges) {
+          final sNum = r[0];
+          final aStart = r[1];
+          final aEnd = r[2];
+          final totalInRange = (aEnd - aStart) + 1;
+          totalVersesInRanges += totalInRange;
+
+          final readCount = await (_db.select(_db.verses)
+                ..where((t) =>
+                    t.surahNum.equals(sNum) &
+                    t.ayahNum.isBiggerOrEqualValue(aStart) &
+                    t.ayahNum.isSmallerOrEqualValue(aEnd) &
+                    t.isRead.equals(true)))
+              .get();
+
+          totalRead += readCount.length;
+        }
+
+        final progress = totalVersesInRanges > 0 ? totalRead / totalVersesInRanges : 0.0;
+        final isCompleted = progress >= 1.0;
+
+        await (_db.update(_db.expeditions)..where((t) => t.id.equals(expId))).write(
+          ExpeditionsCompanion(
+            progress: Value(progress),
+            isCompleted: Value(isCompleted),
+          ),
+        );
+      }
+    }
   }
 }

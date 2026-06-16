@@ -18,6 +18,8 @@ class VerseBlock extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback? onPlayAudio;
   final VoidCallback? onBookmark;
+  final bool isAudioPlaying;
+  final bool isAudioLoading;
 
   const VerseBlock({
     Key? key,
@@ -34,6 +36,8 @@ class VerseBlock extends StatelessWidget {
     required this.onTap,
     this.onPlayAudio,
     this.onBookmark,
+    this.isAudioPlaying = false,
+    this.isAudioLoading = false,
   }) : super(key: key);
 
   @override
@@ -116,14 +120,29 @@ class VerseBlock extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (isPremium) ...[
-                        IconButton(
-                          icon: const Icon(Icons.play_arrow_outlined, size: 20),
-                          color: const Color(0xFF1D9E75),
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          onPressed: onPlayAudio,
-                        ),
+                      if (onPlayAudio != null) ...[
+                        if (isAudioLoading)
+                          const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1D9E75)),
+                            ),
+                          )
+                        else
+                          IconButton(
+                            icon: Icon(
+                              isAudioPlaying
+                                  ? Icons.pause_circle_outline
+                                  : Icons.play_arrow_outlined,
+                              size: 20,
+                            ),
+                            color: const Color(0xFF1D9E75),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: onPlayAudio,
+                          ),
                         const SizedBox(width: 12),
                       ],
                       IconButton(

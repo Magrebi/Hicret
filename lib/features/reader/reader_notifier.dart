@@ -6,6 +6,7 @@ import '../../core/repositories/quran_repository.dart';
 
 import '../../core/local_db/database_provider.dart';
 import 'package:drift/drift.dart';
+import '../../core/local_db/database_seeder.dart';
 
 part 'reader_notifier.g.dart';
 
@@ -66,107 +67,14 @@ Future<List<Verse>> verseList(VerseListRef ref, int surahNum) async {
 
   final db = ref.read(appDatabaseProvider);
   
+  // Seed the main entities and metadata if they haven't been seeded yet
+  final existingEntities = await db.select(db.entities).get();
+  if (existingEntities.isEmpty) {
+    await seedDatabaseFromJson(db);
+  }
+
   await db.transaction(() async {
-    // 1. Seed Entities if empty
-    final existingEntities = await db.select(db.entities).get();
-    if (existingEntities.isEmpty) {
-      await db.into(db.entities).insert(
-        EntitiesCompanion.insert(
-          id: 'prophet_ibrahim',
-          name: 'Abraham (Ibrahim)',
-          type: 'prophet',
-          isRare: const Value(true),
-          region: const Value('Mesopotamia'),
-          description: const Value('One of the greatest prophets in Islam, known for his absolute monotheism.'),
-        ),
-      );
-      await db.into(db.entities).insert(
-        EntitiesCompanion.insert(
-          id: 'kaaba',
-          name: 'Kaaba',
-          type: 'location',
-          isRare: const Value(false),
-          region: const Value('Makkah'),
-          description: const Value('The sacred house built by Ibrahim and Ismail.'),
-        ),
-      );
-      
-      // Seed Triggers for Surah 2
-      await db.into(db.entityTriggers).insert(
-        EntityTriggersCompanion.insert(
-          entityId: 'prophet_ibrahim',
-          surahNum: 2,
-          ayahNum: 124,
-        ),
-      );
-      await db.into(db.entityTriggers).insert(
-        EntityTriggersCompanion.insert(
-          entityId: 'kaaba',
-          surahNum: 2,
-          ayahNum: 125,
-        ),
-      );
-
-      // Seed a static relationship (RelationEdge) between Abraham and Kaaba
-      await db.into(db.relationEdges).insert(
-        RelationEdgesCompanion.insert(
-          entityAId: 'prophet_ibrahim',
-          entityBId: 'kaaba',
-          relationType: 'built',
-        ),
-      );
-    }
-
-    // 2. Seed Themes if empty
-    final existingThemes = await db.select(db.themes).get();
-    if (existingThemes.isEmpty) {
-      await db.into(db.themes).insert(
-        ThemesCompanion.insert(
-          id: 'sabr',
-          name: 'Patience (Sabr)',
-          icon: 'sabr_plant',
-          currentXp: const Value(0),
-          maxXp: const Value(100),
-        ),
-      );
-      await db.into(db.themes).insert(
-        ThemesCompanion.insert(
-          id: 'shukr',
-          name: 'Gratitude (Shukr)',
-          icon: 'shukr_plant',
-          currentXp: const Value(0),
-          maxXp: const Value(100),
-        ),
-      );
-      
-      // Seed levels
-      await db.into(db.themeLevels).insert(
-        ThemeLevelsCompanion.insert(
-          themeId: 'sabr',
-          level: 1,
-          xpRequired: 50,
-        ),
-      );
-      await db.into(db.themeLevels).insert(
-        ThemeLevelsCompanion.insert(
-          themeId: 'sabr',
-          level: 2,
-          xpRequired: 150,
-        ),
-      );
-      
-      // Seed theme trigger on Surah 2, Ayah 153
-      await db.into(db.themeTriggers).insert(
-        ThemeTriggersCompanion.insert(
-          themeId: 'sabr',
-          surahNum: 2,
-          ayahNum: 153,
-          xpReward: const Value(60),
-        ),
-      );
-    }
-
-    // 3. Seed Verses for the requested Surah
+    // Seed Verses for the requested Surah if they do not exist
     final totalCount = surahNum == 1 ? 7 : (surahNum == 2 ? 286 : (surahNum == 9 ? 129 : 10));
     for (int i = 1; i <= totalCount; i++) {
       String arabic = '';

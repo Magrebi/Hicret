@@ -13,6 +13,7 @@ import '../../shared/widgets/verse_block.dart';
 import '../../shared/widgets/verse_skeleton.dart';
 import '../discovery/discovery_service.dart';
 import 'reader_notifier.dart';
+import '../../core/services/audio_service.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   final int surahNumber;
@@ -83,6 +84,8 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
+    // Stop audio playback when leaving the screen
+    ref.read(audioServiceProvider.notifier).stop();
     super.dispose();
   }
 
@@ -377,6 +380,27 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final prefState = ref.watch(readerStateNotifierProvider);
+    final audioState = ref.watch(audioServiceProvider);
+
+    // Handle audio errors and completions dynamically
+    ref.listen<AudioState>(audioServiceProvider, (previous, next) {
+      if (next.error != null && next.error != previous?.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Audio Error: ${next.error}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+
+      if (next.hasCompleted && next.surahNum == widget.surahNumber && next.ayahNum != null) {
+        final verseListAsync = ref.read(verseListProvider(widget.surahNumber));
+        verseListAsync.whenData((verseList) {
+          final verse = verseList.firstWhere((v) => v.ayahNum == next.ayahNum);
+          _handleVerseTap(verse, verseList.length);
+        });
+      }
+    });
 
     // Load verses asynchronously
     final versesAsync = ref.watch(verseListProvider(widget.surahNumber));
@@ -426,7 +450,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                   final isVerseActive = prefState.activeAyahNum == verse.ayahNum;
                   final isVerseRead = prefState.readAyahs.contains(verse.ayahNum);
 
-                  return VerseBlock(
+                   return VerseBlock(
                     surahNum: verse.surahNum,
                     ayahNum: verse.ayahNum,
                     arabicText: verse.textArabic,
@@ -438,8 +462,14 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     arabicFont: prefState.arabicFont,
                     arabicFontSize: isDark ? 22.0 : prefState.arabicFontSize,
                     onTap: () => _handleVerseTap(verse, totalAyahs),
+                    isAudioPlaying: audioState.surahNum == verse.surahNum &&
+                        audioState.ayahNum == verse.ayahNum &&
+                        audioState.isPlaying,
+                    isAudioLoading: audioState.surahNum == verse.surahNum &&
+                        audioState.ayahNum == verse.ayahNum &&
+                        audioState.isLoading,
                     onPlayAudio: () {
-                      // TODO: Tafsir — content team to supply (Audio Recitation)
+                      ref.read(audioServiceProvider.notifier).playVerse(verse.surahNum, verse.ayahNum);
                     },
                     onBookmark: () async {
                       final repo = ref.read(quranRepositoryProvider);
