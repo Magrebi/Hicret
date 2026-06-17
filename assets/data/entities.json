@@ -421,7 +421,7 @@
       "id": "char_uzayr",
       "name": "Uzayr (Ezra) [VERIFY]",
       "type": "historical_figure",
-      "description": "A figure mentioned once in the Quran as being claimed as the son of God by a group of Jews, traditionally identified as Ezra.",
+      "description": "A figure mentioned once in the Quran as being claimed as the son of God by a group of Jews. While the identification of Uzayr with the Biblical Ezra is the traditional reading among most classical exegetes, it is not unanimous; some classical and modern scholars have proposed alternative figures instead (such as Eliezer ben Hyrcanus, Uziel, Azariah, or Idris), presenting Ezra as a traditional but contested identification.",
       "trigger_verses": [
         "9:30 [VERIFY]"
       ],
@@ -466,7 +466,7 @@
       "type": "matriarch",
       "description": "Known in Islamic tradition as Hajar, she was the wife of Ibrahim (AS) and the mother of Ismail (AS), associated with the migration to the valley of Makkah.",
       "trigger_verses": [
-        "14:37 [VERIFY]"
+        "14:37"
       ],
       "relations": [
         "char_ibrahim",
@@ -560,9 +560,9 @@
     },
     {
       "id": "char_imran",
-      "name": "Imran (Amram) (AS) [TRADITIONAL NAME]",
+      "name": "Imran (AS) [VERIFY: identification with Biblical Amram]",
       "type": "historical_figure",
-      "description": "Known in Islamic tradition as the father of Maryam (AS) and the head of the household of Imran honored in the Quran.",
+      "description": "Known in Islamic tradition as the father of Maryam (AS) and the head of the household of Imran honored in the Quran. While classical commentary identifies him with the Biblical Amram, this equation is debated due to the chronological gap, and some scholars read \"Imran\" as referring to lineage/ancestry rather than an immediate father.",
       "trigger_verses": [
         "3:33",
         "66:12"
@@ -621,10 +621,10 @@
       "id": "loc_cave_companions",
       "name": "The Cave of the Companions (Ashābul Kahf)",
       "trigger_verses": [
-        "18:9 [VERIFY]",
-        "18:16 [VERIFY]",
-        "18:17 [VERIFY]",
-        "18:25 [VERIFY]"
+        "18:9",
+        "18:16",
+        "18:17",
+        "18:25"
       ],
       "coordinates_hint": "Levant",
       "description": "The legendary cave in which a group of monotheistic youths slept for centuries under divine protection to escape persecution."
@@ -655,11 +655,11 @@
       "id": "loc_sodom",
       "name": "Sodom (Al-Mu'tafikah) [TRADITIONAL NAME]",
       "trigger_verses": [
-        "9:70 [VERIFY]",
-        "21:74 [VERIFY]",
-        "29:31 [VERIFY]",
-        "53:53 [VERIFY]",
-        "69:9 [VERIFY]"
+        "9:70",
+        "21:74",
+        "29:31",
+        "53:53",
+        "69:9"
       ],
       "coordinates_hint": "Levant",
       "description": "The traditional name for the cities of the Plain inhabited by the people of Lut (AS), which were overturned and destroyed as a consequence of their persistent transgressions."
@@ -679,8 +679,8 @@
       "name": "Lands of 'Aad (Al-Aḥqāf)",
       "trigger_verses": [
         "46:21",
-        "54:18 [VERIFY]",
-        "89:6 [VERIFY]"
+        "54:18",
+        "89:6"
       ],
       "coordinates_hint": "Arabian Peninsula",
       "description": "The desert region of Al-Ahqaf in southern Arabia where the high-built pillars of the tribe of 'Aad were destroyed by a devastating wind storm."
@@ -690,8 +690,8 @@
       "name": "Lands of Thamūd (Al-Ḥijr)",
       "trigger_verses": [
         "15:80",
-        "27:52 [VERIFY]",
-        "89:9 [VERIFY]"
+        "27:52",
+        "89:9"
       ],
       "coordinates_hint": "Arabian Peninsula",
       "description": "The ancient stone-cut dwellings of Al-Hijr (Mada'in Salih) in northwest Arabia, built by the tribe of Thamud who were destroyed after killing the sacred she-camel."
@@ -701,7 +701,7 @@
       "name": "Jerusalem (Al-Aqṣā / Bayt al-Maqdis) [TRADITIONAL NAME]",
       "trigger_verses": [
         "2:143 [VERIFY]",
-        "17:1 [VERIFY]",
+        "17:1",
         "21:71 [VERIFY]"
       ],
       "coordinates_hint": "Levant",
@@ -914,7 +914,7 @@
         "id": "food_honey",
         "name": "Honey (Al-ʿAsal)",
         "trigger_verses": [
-          "16:69 [VERIFY]",
+          "16:69",
           "47:15"
         ],
         "description": "A sweet, viscous liquid produced by bees, highlighted in the Quran for its nutritional value, healing qualities, and as a river in Paradise."
