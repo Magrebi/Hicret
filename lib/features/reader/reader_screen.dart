@@ -38,6 +38,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   bool _isProcessingUnlock = false;
   bool _firstScrollRestored = false;
   int _visibleCount = 20;
+  AudioService? _audioServiceNotifier;
   
   // Surah names list mapping for UI display
   static const Map<int, String> _surahNames = {
@@ -70,6 +71,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   @override
   void initState() {
     super.initState();
+    _audioServiceNotifier = ref.read(audioServiceProvider.notifier);
     // Initialize visible count to comfortably fit startAyah
     _visibleCount = ((widget.startAyah ~/ 20 + 1) * 20).clamp(20, 286);
     _scrollController.addListener(_scrollListener);
@@ -85,7 +87,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
     // Stop audio playback when leaving the screen
-    ref.read(audioServiceProvider.notifier).stop();
+    _audioServiceNotifier?.stop();
     super.dispose();
   }
 
@@ -126,7 +128,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         final total = verseList.length;
         if (_visibleCount < total) {
           setState(() {
-            _visibleCount = (_visibleCount + 20).clamp(20, total);
+            _visibleCount = (_visibleCount + 20).clamp(0, total);
           });
         }
       });
@@ -331,6 +333,65 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
+
+                  // Translation Language Settings
+                  Text(
+                    'Translation Language',
+                    style: TextStyle(
+                      fontFamily: 'SF Pro',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: isDark ? const Color(0xFFC9C6BE) : const Color(0xFF5A574F),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      ChoiceChip(
+                        label: const Text('English'),
+                        selected: state.translationLanguage == 'en',
+                        selectedColor: const Color(0xFF1D9E75).withOpacity(0.2),
+                        onSelected: (selected) {
+                          if (selected) {
+                            notifier.setTranslationLanguage('en');
+                          }
+                        },
+                      ),
+                      ChoiceChip(
+                        label: const Text('Türkçe'),
+                        selected: state.translationLanguage == 'tr',
+                        selectedColor: const Color(0xFF1D9E75).withOpacity(0.2),
+                        onSelected: (selected) {
+                          if (selected) {
+                            notifier.setTranslationLanguage('tr');
+                          }
+                        },
+                      ),
+                      ChoiceChip(
+                        label: const Text('Deutsch'),
+                        selected: state.translationLanguage == 'de',
+                        selectedColor: const Color(0xFF1D9E75).withOpacity(0.2),
+                        onSelected: (selected) {
+                          if (selected) {
+                            notifier.setTranslationLanguage('de');
+                          }
+                        },
+                      ),
+                      ChoiceChip(
+                        label: const Text('Français'),
+                        selected: state.translationLanguage == 'fr',
+                        selectedColor: const Color(0xFF1D9E75).withOpacity(0.2),
+                        onSelected: (selected) {
+                          if (selected) {
+                            notifier.setTranslationLanguage('fr');
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
                   
                   // Premium Tier Toggle (for testing audio stubs)
                   Row(
@@ -396,8 +457,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
       if (next.hasCompleted && next.surahNum == widget.surahNumber && next.ayahNum != null) {
         final verseListAsync = ref.read(verseListProvider(widget.surahNumber));
         verseListAsync.whenData((verseList) {
-          final verse = verseList.firstWhere((v) => v.ayahNum == next.ayahNum);
-          _handleVerseTap(verse, verseList.length);
+          final matches = verseList.where((v) => v.ayahNum == next.ayahNum);
+          if (matches.isNotEmpty) {
+            _handleVerseTap(matches.first, verseList.length);
+          }
         });
       }
     });
@@ -419,14 +482,19 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                 return const Center(child: Text('No verses found.'));
               }
 
-              // Load already read verses into notifier once
+              // Load already read verses into notifier once, guarding against redundant updates causing infinite loops
               final readSet = verseList.where((v) => v.isRead).map((v) => v.ayahNum).toList();
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                ref.read(readerStateNotifierProvider.notifier).loadReadAyahs(readSet);
+                if (mounted) {
+                  final currentRead = ref.read(readerStateNotifierProvider).readAyahs;
+                  if (currentRead.length != readSet.length || !currentRead.containsAll(readSet)) {
+                    ref.read(readerStateNotifierProvider.notifier).loadReadAyahs(readSet);
+                  }
+                }
               });
 
               final totalAyahs = verseList.length;
-              final currentVisible = _visibleCount.clamp(20, totalAyahs);
+              final currentVisible = _visibleCount.clamp(0, totalAyahs);
 
               return ListView.builder(
                 key: PageStorageKey('reader_list_${widget.surahNumber}'),
@@ -450,11 +518,24 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                   final isVerseActive = prefState.activeAyahNum == verse.ayahNum;
                   final isVerseRead = prefState.readAyahs.contains(verse.ayahNum);
 
+                  String getTranslationText(Verse v, String lang) {
+                    switch (lang) {
+                      case 'tr':
+                        return v.textTranslationTr ?? v.textTranslation;
+                      case 'de':
+                        return v.textTranslationDe ?? v.textTranslation;
+                      case 'fr':
+                        return v.textTranslationFr ?? v.textTranslation;
+                      default:
+                        return v.textTranslation;
+                    }
+                  }
+
                    return VerseBlock(
                     surahNum: verse.surahNum,
                     ayahNum: verse.ayahNum,
                     arabicText: verse.textArabic,
-                    translationText: verse.textTranslation,
+                    translationText: getTranslationText(verse, prefState.translationLanguage),
                     isRead: isVerseRead,
                     isActive: isVerseActive,
                     isDark: isDark,

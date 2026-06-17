@@ -7,6 +7,8 @@ import '../../core/repositories/quran_repository.dart';
 import '../../core/local_db/database_provider.dart';
 import 'package:drift/drift.dart';
 import '../../core/local_db/database_seeder.dart';
+import '../../core/network/quran_api_service.dart';
+import '../home/surah_data.dart';
 
 part 'reader_notifier.g.dart';
 
@@ -66,6 +68,7 @@ Future<List<Verse>> verseList(VerseListRef ref, int surahNum) async {
   }
 
   final db = ref.read(appDatabaseProvider);
+  final apiService = ref.read(quranApiServiceProvider);
   
   // Seed the main entities and metadata if they haven't been seeded yet
   final existingEntities = await db.select(db.entities).get();
@@ -73,40 +76,74 @@ Future<List<Verse>> verseList(VerseListRef ref, int surahNum) async {
     await seedDatabaseFromJson(db);
   }
 
-  await db.transaction(() async {
-    // Seed Verses for the requested Surah if they do not exist
-    final totalCount = surahNum == 1 ? 7 : (surahNum == 2 ? 286 : (surahNum == 9 ? 129 : 10));
-    for (int i = 1; i <= totalCount; i++) {
-      String arabic = '';
-      String english = '';
-      
-      if (surahNum == 1) {
-        arabic = _fatihahArabic[i - 1];
-        english = _fatihahEnglish[i - 1];
-      } else if (surahNum == 2) {
-        if (i <= _baqarahArabic.length) {
-          arabic = _baqarahArabic[i - 1];
-          english = _baqarahEnglish[i - 1];
-        } else {
-          arabic = 'ذَٰلِكَ ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ ($i)';
-          english = 'This is verse $i of Surah Al-Baqarah (Mock English translation text for editorial and reading spacing evaluation).';
+  // First, try to fetch the real verses from the API
+  bool seededFromApi = false;
+  try {
+    final liveVerses = await apiService.fetchSurahVerses(surahNum);
+    if (liveVerses.isNotEmpty) {
+      await db.transaction(() async {
+        for (final v in liveVerses) {
+          await db.into(db.verses).insert(
+            VersesCompanion.insert(
+              surahNum: surahNum,
+              ayahNum: v['ayahNum'] as int,
+              textArabic: v['arabic'] as String,
+              textTranslation: v['english'] as String,
+              textTranslationTr: Value(v['turkish'] as String?),
+              textTranslationDe: Value(v['german'] as String?),
+              textTranslationFr: Value(v['french'] as String?),
+              isRead: const Value(false),
+            ),
+          );
         }
-      } else {
-        arabic = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ($i)';
-        english = 'This is mock translation for surah $surahNum verse $i.';
-      }
-      
-      await db.into(db.verses).insert(
-        VersesCompanion.insert(
-          surahNum: surahNum,
-          ayahNum: i,
-          textArabic: arabic,
-          textTranslation: english,
-          isRead: const Value(false),
-        ),
-      );
+      });
+      seededFromApi = true;
     }
-  });
+  } catch (e) {
+    // Fail silently to fall back to mock offline seeding
+  }
+
+  // If API fetch failed or was empty, fall back to offline mock seeding
+  if (!seededFromApi) {
+    await db.transaction(() async {
+      final surahData = allSurahsStaticData.firstWhere(
+        (s) => s.number == surahNum,
+        orElse: () => allSurahsStaticData[0],
+      );
+      final totalCount = surahData.totalAyahs;
+
+      for (int i = 1; i <= totalCount; i++) {
+        String arabic = '';
+        String english = '';
+        
+        if (surahNum == 1) {
+          arabic = _fatihahArabic[i - 1];
+          english = _fatihahEnglish[i - 1];
+        } else if (surahNum == 2) {
+          if (i <= _baqarahArabic.length) {
+            arabic = _baqarahArabic[i - 1];
+            english = _baqarahEnglish[i - 1];
+          } else {
+            arabic = 'ذَٰلِكَ ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ ($i)';
+            english = 'This is verse $i of Surah Al-Baqarah (Mock English translation text for editorial and reading spacing evaluation).';
+          }
+        } else {
+          arabic = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ($i)';
+          english = 'This is mock translation for surah $surahNum verse $i.';
+        }
+        
+        await db.into(db.verses).insert(
+          VersesCompanion.insert(
+            surahNum: surahNum,
+            ayahNum: i,
+            textArabic: arabic,
+            textTranslation: english,
+            isRead: const Value(false),
+          ),
+        );
+      }
+    });
+  }
 
   return repository.getVersesForSurah(surahNum);
 }
@@ -117,6 +154,7 @@ class ReaderState {
   final bool isPremium; // Stub for checking premium-tier entitlements
   final String arabicFont; // Amiri Quran / KFGQPC Uthmanic selection
   final double arabicFontSize; // Arabic text scale size
+  final String translationLanguage; // 'en', 'tr', 'de', 'fr' preferred translation language
   final Set<int> readAyahs; // Set of Ayah numbers marked as read in this session
 
   ReaderState({
@@ -124,6 +162,7 @@ class ReaderState {
     this.isPremium = false,
     this.arabicFont = 'Amiri Quran',
     this.arabicFontSize = 24.0,
+    this.translationLanguage = 'en',
     Set<int>? readAyahs,
   }) : readAyahs = readAyahs ?? {};
 
@@ -132,6 +171,7 @@ class ReaderState {
     bool? isPremium,
     String? arabicFont,
     double? arabicFontSize,
+    String? translationLanguage,
     Set<int>? readAyahs,
   }) {
     return ReaderState(
@@ -139,6 +179,7 @@ class ReaderState {
       isPremium: isPremium ?? this.isPremium,
       arabicFont: arabicFont ?? this.arabicFont,
       arabicFontSize: arabicFontSize ?? this.arabicFontSize,
+      translationLanguage: translationLanguage ?? this.translationLanguage,
       readAyahs: readAyahs ?? this.readAyahs,
     );
   }
@@ -154,6 +195,7 @@ class ReaderStateNotifier extends _$ReaderStateNotifier {
       isPremium: false,
       arabicFont: 'Amiri Quran',
       arabicFontSize: 24.0,
+      translationLanguage: 'en',
       readAyahs: {},
     );
   }
@@ -187,5 +229,10 @@ class ReaderStateNotifier extends _$ReaderStateNotifier {
   /// Set the preferred Arabic font size
   void setArabicFontSize(double size) {
     state = state.copyWith(arabicFontSize: size);
+  }
+
+  /// Set the preferred translation language
+  void setTranslationLanguage(String lang) {
+    state = state.copyWith(translationLanguage: lang);
   }
 }

@@ -39,10 +39,12 @@ class _ConstellationScreenState extends ConsumerState<ConstellationScreen> {
   String? _highlightedEntityId;
   FilterType _activeFilter = FilterType.all;
   String? _processedHighlightId;
+  ConstellationNotifier? _constellationNotifier;
 
   @override
   void initState() {
     super.initState();
+    _constellationNotifier = ref.read(constellationNotifierProvider.notifier);
     _algorithm = FruchtermanReingoldAlgorithm(
       FruchtermanReingoldConfiguration(
         shuffleNodes: false, // Centroid seeding handles initial node positions
@@ -55,14 +57,14 @@ class _ConstellationScreenState extends ConsumerState<ConstellationScreen> {
 
     // Call setForeground(true) on screen initialization
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(constellationNotifierProvider.notifier).setForeground(true);
+      _constellationNotifier?.setForeground(true);
     });
   }
 
   @override
   void dispose() {
     // Call setForeground(false) on screen disposal
-    ref.read(constellationNotifierProvider.notifier).setForeground(false);
+    _constellationNotifier?.setForeground(false);
     super.dispose();
   }
 

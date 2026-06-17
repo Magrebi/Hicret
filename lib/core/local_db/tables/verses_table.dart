@@ -7,6 +7,9 @@ class Verses extends Table {
   IntColumn get ayahNum => integer()();
   TextColumn get textArabic => text()();
   TextColumn get textTranslation => text()();
+  TextColumn get textTranslationTr => text().nullable()();
+  TextColumn get textTranslationDe => text().nullable()();
+  TextColumn get textTranslationFr => text().nullable()();
   BoolColumn get isRead => boolean().withDefault(const Constant(false))();
 
   @override

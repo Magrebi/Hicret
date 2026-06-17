@@ -64,7 +64,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -96,6 +96,15 @@ class AppDatabase extends _$AppDatabase {
 
           // 3. Create the new dynamic `ConstellationEdges` table to separate static and dynamic relationships
           await m.create(constellationEdges);
+        });
+      }
+      if (from < 3) {
+        // Migration logic for schema v2 -> v3
+        // Scenario: Appending Turkish, German, and French translations columns to Verses table
+        await transaction(() async {
+          await m.addColumn(verses, verses.textTranslationTr);
+          await m.addColumn(verses, verses.textTranslationDe);
+          await m.addColumn(verses, verses.textTranslationFr);
         });
       }
     },
