@@ -39,6 +39,16 @@ class DiscoveryService {
             ..where((t) => t.surahNum.equals(surah) & t.ayahNum.equals(ayah)))
           .getSingleOrNull();
 
+      // Safeguard: If already read, return empty events immediately to prevent duplicate increments
+      if (match != null && match.isRead) {
+        return DiscoveryResult(
+          unlocks: [],
+          xpEvents: [],
+          storyEvents: [],
+          setCompletions: [],
+        );
+      }
+
       if (match == null) {
         await _db.into(_db.verses).insert(
           VersesCompanion.insert(
@@ -87,9 +97,10 @@ class DiscoveryService {
       );
     });
 
-    // 9. Coordinate with the Constellation state manager
-    // Discovery Service initiates a deferred scheduleRefresh call post-transaction commit.
-    _ref.read(constellationNotifierProvider.notifier).scheduleRefresh();
+    // 9. Coordinate with the Constellation state manager (only if it is already initialized/active)
+    if (_ref.exists(constellationNotifierProvider)) {
+      _ref.read(constellationNotifierProvider.notifier).scheduleRefresh();
+    }
 
     return result;
   }

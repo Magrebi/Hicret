@@ -62,6 +62,20 @@ Stream<List<SetsData>> watchSets(WatchSetsRef ref) {
   return db.select(db.sets).watch();
 }
 
+/// Cache provider for static collection entities.
+@riverpod
+Future<List<CollectionEntity>> staticCollectionEntities(StaticCollectionEntitiesRef ref) {
+  final db = ref.watch(appDatabaseProvider);
+  return db.select(db.collectionEntities).get();
+}
+
+/// Cache provider for static set requirements.
+@riverpod
+Future<List<SetRequirement>> staticSetRequirements(StaticSetRequirementsRef ref) {
+  final db = ref.watch(appDatabaseProvider);
+  return db.select(db.setRequirements).get();
+}
+
 /// Main notifier providing all Level 1 state reactively.
 @riverpod
 class Encyclopedia extends _$Encyclopedia {
@@ -89,9 +103,9 @@ class Encyclopedia extends _$Encyclopedia {
 
     final places = allEntities.where((e) => e.type.toLowerCase() == 'location').toList();
 
-    // Fetch relations for progress counting
-    final allCollectionEntities = await db.select(db.collectionEntities).get();
-    final allSetRequirements = await db.select(db.setRequirements).get();
+    // Fetch relations for progress counting (cached via Riverpod providers to avoid DB overhead on every entity update)
+    final allCollectionEntities = await ref.watch(staticCollectionEntitiesProvider.future);
+    final allSetRequirements = await ref.watch(staticSetRequirementsProvider.future);
 
     final discoveredMap = {for (final e in allEntities) e.id: e.isDiscovered};
 

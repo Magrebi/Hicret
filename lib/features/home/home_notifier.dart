@@ -55,7 +55,15 @@ Stream<UserProgressState> userProgress(UserProgressRef ref) {
 
   // Watch the user_progress table updates
   return db.select(db.userProgress).watchSingle().asyncMap((progress) async {
-    final readVerses = await (db.select(db.verses)..where((t) => t.isRead.equals(true))).get();
+    // Optimised: Fetch only the single latest read verse directly from SQLite instead of loading/sorting thousands in-memory
+    final lastReadQuery = db.select(db.verses)
+      ..where((t) => t.isRead.equals(true))
+      ..orderBy([
+        (t) => OrderingTerm(expression: t.surahNum, mode: OrderingMode.desc),
+        (t) => OrderingTerm(expression: t.ayahNum, mode: OrderingMode.desc),
+      ])
+      ..limit(1);
+    final lastReadVerse = await lastReadQuery.getSingleOrNull();
     
     int lastReadSurah = 1;
     int lastReadAyah = 0;
@@ -63,18 +71,9 @@ Stream<UserProgressState> userProgress(UserProgressRef ref) {
     int nextUnreadAyah = 1;
     String nextUnreadSnippet = '';
 
-    if (readVerses.isNotEmpty) {
-      // Sort read verses to find the last read one
-      final sorted = List<Verse>.from(readVerses)
-        ..sort((a, b) {
-          final cmp = a.surahNum.compareTo(b.surahNum);
-          if (cmp != 0) return cmp;
-          return a.ayahNum.compareTo(b.ayahNum);
-        });
-
-      final last = sorted.last;
-      lastReadSurah = last.surahNum;
-      lastReadAyah = last.ayahNum;
+    if (lastReadVerse != null) {
+      lastReadSurah = lastReadVerse.surahNum;
+      lastReadAyah = lastReadVerse.ayahNum;
 
       // Determine next unread surah and ayah
       final currentSurahData = allSurahsStaticData.firstWhere(
@@ -132,11 +131,21 @@ Stream<List<SurahListItem>> surahList(SurahListRef ref) {
 
   // Re-trigger when user progress changes
   return db.select(db.userProgress).watchSingle().asyncMap((_) async {
-    final readVerses = await (db.select(db.verses)..where((t) => t.isRead.equals(true))).get();
-
     final readCounts = <int, int>{};
-    for (final v in readVerses) {
-      readCounts[v.surahNum] = (readCounts[v.surahNum] ?? 0) + 1;
+    
+    // Optimised: Perform grouping and counting in SQLite directly to fetch at most 114 rows instead of 6236
+    final query = db.selectOnly(db.verses)
+      ..addColumns([db.verses.surahNum, db.verses.surahNum.count()])
+      ..where(db.verses.isRead.equals(true))
+      ..groupBy([db.verses.surahNum]);
+      
+    final rows = await query.get();
+    for (final row in rows) {
+      final surah = row.read(db.verses.surahNum);
+      final count = row.read(db.verses.surahNum.count());
+      if (surah != null && count != null) {
+        readCounts[surah] = count;
+      }
     }
 
     final list = <SurahListItem>[];

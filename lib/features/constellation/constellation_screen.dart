@@ -29,9 +29,8 @@ class ConstellationScreen extends ConsumerStatefulWidget {
 }
 
 class _ConstellationScreenState extends ConsumerState<ConstellationScreen> {
-  final GraphViewController _graphViewController = GraphViewController(
-    transformationController: TransformationController(),
-  );
+  late final TransformationController _transformationController;
+  late final GraphViewController _graphViewController;
 
   late final FruchtermanReingoldAlgorithm _algorithm;
 
@@ -44,6 +43,10 @@ class _ConstellationScreenState extends ConsumerState<ConstellationScreen> {
   @override
   void initState() {
     super.initState();
+    _transformationController = TransformationController();
+    _graphViewController = GraphViewController(
+      transformationController: _transformationController,
+    );
     _constellationNotifier = ref.read(constellationNotifierProvider.notifier);
     _algorithm = FruchtermanReingoldAlgorithm(
       FruchtermanReingoldConfiguration(
@@ -65,6 +68,7 @@ class _ConstellationScreenState extends ConsumerState<ConstellationScreen> {
   void dispose() {
     // Call setForeground(false) on screen disposal
     _constellationNotifier?.setForeground(false);
+    _transformationController.dispose();
     super.dispose();
   }
 
@@ -642,7 +646,7 @@ class _DotGridPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant _DotGridPainter oldDelegate) => oldDelegate.opacity != opacity;
 }
 
 class _GlowingTealDot extends StatefulWidget {
