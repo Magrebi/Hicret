@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
+import 'core/local_db/database_provider.dart';
+import 'core/local_db/database_seeder.dart';
 import 'core/theme/app_theme.dart';
 import 'features/home/home_screen.dart';
 import 'features/reader/reader_screen.dart';
@@ -53,8 +54,23 @@ final GoRouter _router = GoRouter(
   ],
 );
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Run the entity seeder at startup, before any screen renders.
+  // Uses a temporary ProviderContainer so the seeder can access AppDatabase
+  // without needing to be inside the widget tree.
+  final container = ProviderContainer();
+  try {
+    final db = container.read(appDatabaseProvider);
+    final existingEntities = await db.select(db.entities).get();
+    if (existingEntities.isEmpty) {
+      await seedDatabaseFromJson(db);
+    }
+  } finally {
+    container.dispose();
+  }
+
   runApp(
     const ProviderScope(
       child: MyApp(),

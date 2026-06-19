@@ -36,7 +36,7 @@ Future<void> seedDatabaseFromJson(AppDatabase db) async {
 
     // Helper to strip tags: e.g. "9:30 [VERIFY]" -> "9:30"
     String stripTag(String val) {
-      return val.replaceAll(RegExp(r'\s*\[(VERIFY|TRADITIONAL[^\]]*|CONFIRM ID EXISTS[^\]]*)\]'), '').trim();
+      return val.replaceAll(RegExp(r'\s*\[(VERIFY[^\]]*|TRADITIONAL[^\]]*|CONFIRM ID EXISTS[^\]]*)\]'), '').trim();
     }
 
     // Helper to parse verse ref like "12:4" -> (surahNum, ayahNum)

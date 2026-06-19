@@ -31,6 +31,7 @@ class ReaderScreen extends ConsumerStatefulWidget {
 
 class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   final ScrollController _scrollController = ScrollController();
+  final Map<int, GlobalKey> _verseKeys = {};
   
   double _appBarOpacity = 1.0;
   double _lastScrollOffset = 0.0;
@@ -95,16 +96,22 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   void _restoreScrollPosition() {
     if (_firstScrollRestored) return;
     _firstScrollRestored = true;
-    
-    if (widget.startAyah > 1) {
-      // Estimate each block average height around 220px to jump near start_ayah
-      final double targetOffset = (widget.startAyah - 1) * 220.0;
-      _scrollController.animateTo(
-        targetOffset,
-        duration: const Duration(milliseconds: 300),
-        curve: AlignmentHelper._easeDefault,
-      );
-    }
+
+    if (widget.startAyah <= 1) return;
+
+    // Schedule after the first frame so the ListView has rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final key = _verseKeys[widget.startAyah];
+      final context = key?.currentContext;
+      if (context != null) {
+        Scrollable.ensureVisible(
+          context,
+          duration: const Duration(milliseconds: 300),
+          curve: AlignmentHelper._easeDefault,
+          alignment: 0.15, // Position the target verse 15% from the top of the viewport
+        );
+      }
+    });
   }
 
   /// App bar and pagination bottom navigation bar scroll transition checks
@@ -531,8 +538,13 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     }
                   }
 
-                   return VerseBlock(
-                    surahNum: verse.surahNum,
+                  // Create or reuse the key for this ayah
+                  _verseKeys[verse.ayahNum] ??= GlobalKey();
+
+                  return KeyedSubtree(
+                    key: _verseKeys[verse.ayahNum],
+                    child: VerseBlock(
+                      surahNum: verse.surahNum,
                     ayahNum: verse.ayahNum,
                     arabicText: verse.textArabic,
                     translationText: getTranslationText(verse, prefState.translationLanguage),
@@ -561,6 +573,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                         await repo.addBookmark(verse.surahNum, verse.ayahNum);
                       }
                     },
+                  ),
                   );
                 },
               );

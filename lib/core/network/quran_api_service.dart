@@ -28,26 +28,45 @@ class QuranApiService {
   /// [surahNum] The 1-indexed number of the Surah (1 to 114)
   /// Returns a list of maps containing 'ayahNum', 'arabic', and 'english'.
   Future<List<Map<String, dynamic>>> fetchSurahVerses(int surahNum) async {
-    final url = 'https://api.quran.com/api/v4/verses/by_chapter/$surahNum?language=en&fields=text_uthmani&translations=131&per_page=300';
+    // IDs: 131 = Sahih International (EN), 77 = Turkish Diyanet,
+    //      27 = German Bubenheim, 31 = French Hamidullah
+    const enId = 131;
+    const trId = 77;
+    const deId = 27;
+    const frId = 31;
+
+    final url = 'https://api.quran.com/api/v4/verses/by_chapter/$surahNum'
+        '?language=en&fields=text_uthmani'
+        '&translations=$enId,$trId,$deId,$frId&per_page=300';
     final response = await http.get(Uri.parse(url));
-    
+
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      final List<dynamic> versesJson = data['verses'] ?? [];
-      
+      final data = json.decode(response.body) as Map<String, dynamic>;
+      final versesJson = data['verses'] as List<dynamic>? ?? [];
+
       return versesJson.map((v) {
-        final translations = v['translations'] as List<dynamic>?;
-        final englishText = (translations != null && translations.isNotEmpty)
-            ? translations.first['text'] as String
-            : '';
+        // Build a map of translationId -> text for this verse
+        final translations = v['translations'] as List<dynamic>? ?? [];
+        final byId = <int, String>{};
+        for (final t in translations) {
+          final id = t['resource_id'] as int?;
+          final text = t['text'] as String? ?? '';
+          if (id != null) byId[id] = _stripHtmlTags(text);
+        }
+
         return {
           'ayahNum': v['verse_number'] as int,
-          'arabic': v['text_uthmani'] as String? ?? '',
-          'english': _stripHtmlTags(englishText),
+          'arabic':  v['text_uthmani'] as String? ?? '',
+          'english': byId[enId] ?? '',
+          'turkish': byId[trId],   // nullable — null if translation missing
+          'german':  byId[deId],
+          'french':  byId[frId],
         };
       }).toList();
     } else {
-      throw Exception('Failed to load verses from Quran API (status code: ${response.statusCode})');
+      throw Exception(
+        'Failed to load verses from Quran API (status code: ${response.statusCode})',
+      );
     }
   }
 

@@ -925,6 +925,7 @@
     {
       "id": "story_yusuf",
       "name": "The Story of Yusuf",
+      "description": "The complete narrative of Yusuf (AS) from his dream to his reunion with his family, covering his trials and rise to power.",
       "total_milestones": 20,
       "related_surah": 12,
       "completion_verses": [
@@ -934,6 +935,7 @@
     {
       "id": "story_musa_firawn",
       "name": "The Story of Musa & Firawn",
+      "description": "The major events detailing the life of Musa (AS), his confrontation with Pharaoh, and the liberation of the Israelites.",
       "total_milestones": 50,
       "related_surah": 28,
       "completion_verses": [
@@ -948,6 +950,7 @@
     {
       "id": "story_cave_companions",
       "name": "The Story of the Companions of the Cave",
+      "description": "The account of the faithful youths who sought refuge in a cave to preserve their monotheistic belief and were put to sleep for centuries.",
       "total_milestones": 8,
       "related_surah": 18,
       "completion_verses": [
@@ -957,6 +960,7 @@
     {
       "id": "story_ibrahim_sacrifice",
       "name": "The Story of Ibrahim's Sacrifice",
+      "description": "The profound test of faith where Ibrahim (AS) is commanded to sacrifice his son, demonstrating absolute submission to Allah.",
       "total_milestones": 10,
       "related_surah": 37,
       "completion_verses": [
@@ -968,6 +972,7 @@
     {
       "id": "story_nuh_flood",
       "name": "The Story of Nuh's Flood",
+      "description": "The narrative of Nuh's (AS) prolonged preaching, the construction of the Ark, and the devastating flood that cleansed the earth.",
       "total_milestones": 15,
       "related_surah": 11,
       "completion_verses": [

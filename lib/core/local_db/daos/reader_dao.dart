@@ -21,18 +21,10 @@ class ReaderDao extends DatabaseAccessor<AppDatabase> with _$ReaderDaoMixin {
   }
 
   /// Mark a verse as read quietly and increment progress counters
-  Future<void> markVerseAsRead(int surahNum, int ayahNum) async {
-    await transaction(() async {
-      // 1. Mark verse as read
-      await (update(verses)
-            ..where((t) => t.surahNum.equals(surahNum) & t.ayahNum.equals(ayahNum)))
-          .write(const VersesCompanion(isRead: Value(true)));
-
-      // 2. Increment the total read count in the UserProgress singleton
-      await customStatement(
-        'UPDATE user_progress SET total_verses_read = total_verses_read + 1 WHERE id = 1;',
-      );
-    });
+  Future<void> markVerseAsRead(int surahNum, int ayahNum) {
+    return (update(verses)
+          ..where((t) => t.surahNum.equals(surahNum) & t.ayahNum.equals(ayahNum)))
+        .write(const VersesCompanion(isRead: Value(true)));
   }
 
   /// Bookmark a specific verse

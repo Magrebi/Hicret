@@ -90,9 +90,9 @@ class SetCollectionDao extends DatabaseAccessor<AppDatabase> with _$SetCollectio
   }
 
   /// Watch all Expeditions (for real-time updates)
-  Stream<List<Expedition>> watchAllExpeditions() {
-    getAllExpeditions(); // Trigger seed check in background
-    return select(expeditions).watch();
+  Stream<List<Expedition>> watchAllExpeditions() async* {
+    await getAllExpeditions(); // Ensure expeditions are seeded before watching
+    yield* select(expeditions).watch();
   }
 
   /// Update expedition progress parameters

@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/local_db/app_database.dart';
 import '../../core/local_db/database_provider.dart';
+import '../../core/local_db/expedition_routes.dart';
 import '../constellation/constellation_notifier.dart';
 
 import 'discovery_result.dart';
@@ -194,56 +195,61 @@ class DiscoveryService {
 
   /// Private transaction helper to update story metrics via range evaluations.
   Future<List<StoryEvent>> _updateStoryProgress(int surah, int ayah) async {
-    final allStories = await _db.select(_db.stories).get();
+    // Pre-filter: find only stories that have a range containing this verse.
+    // This avoids scanning all stories + ranges on every ayah read.
+    final affectedRanges = await (_db.select(_db.storyVerseRanges)
+          ..where((t) =>
+              t.surahNum.equals(surah) &
+              t.ayahStart.isSmallerOrEqualValue(ayah) &
+              t.ayahEnd.isBiggerOrEqualValue(ayah)))
+        .get();
+
+    if (affectedRanges.isEmpty) return [];
+
+    final affectedStoryIds = affectedRanges.map((r) => r.storyId).toSet();
     final storyEvents = <StoryEvent>[];
 
-    for (final story in allStories) {
-      final ranges = await (_db.select(_db.storyVerseRanges)
-            ..where((t) => t.storyId.equals(story.id)))
+    for (final storyId in affectedStoryIds) {
+      final story = await (_db.select(_db.stories)
+            ..where((t) => t.id.equals(storyId)))
+          .getSingleOrNull();
+
+      if (story == null) continue;
+
+      final allRanges = await (_db.select(_db.storyVerseRanges)
+            ..where((t) => t.storyId.equals(storyId)))
           .get();
 
-      bool affected = false;
-      for (final r in ranges) {
-        if (_ayahInRange(surah, ayah, r)) {
-          affected = true;
-          break;
-        }
+      int totalRead = 0;
+      int totalVersesInRanges = 0;
+
+      for (final r in allRanges) {
+        final totalInRange = (r.ayahEnd - r.ayahStart) + 1;
+        totalVersesInRanges += totalInRange;
+
+        final readCount = await (_db.select(_db.verses)
+              ..where((t) =>
+                  t.surahNum.equals(r.surahNum) &
+                  t.ayahNum.isBiggerOrEqualValue(r.ayahStart) &
+                  t.ayahNum.isSmallerOrEqualValue(r.ayahEnd) &
+                  t.isRead.equals(true)))
+            .get();
+
+        totalRead += readCount.length;
       }
 
-      if (affected) {
-        // Recalculate complete reading fraction within all ranges of this story
-        int totalRead = 0;
-        int totalVersesInRanges = 0;
+      final progress =
+          totalVersesInRanges > 0 ? totalRead / totalVersesInRanges : 0.0;
 
-        for (final r in ranges) {
-          final totalInRange = (r.ayahEnd - r.ayahStart) + 1;
-          totalVersesInRanges += totalInRange;
+      await (_db.update(_db.stories)..where((t) => t.id.equals(storyId))).write(
+        StoriesCompanion(progressValue: Value(progress)),
+      );
 
-          final readCount = await (_db.select(_db.verses)
-                ..where((t) =>
-                    t.surahNum.equals(r.surahNum) &
-                    t.ayahNum.isBiggerOrEqualValue(r.ayahStart) &
-                    t.ayahNum.isSmallerOrEqualValue(r.ayahEnd) &
-                    t.isRead.equals(true)))
-              .get();
-
-          totalRead += readCount.length;
-        }
-
-        final progress = totalVersesInRanges > 0 ? totalRead / totalVersesInRanges : 0.0;
-
-        await (_db.update(_db.stories)..where((t) => t.id.equals(story.id))).write(
-          StoriesCompanion(progressValue: Value(progress)),
-        );
-
-        storyEvents.add(
-          StoryEvent(
-            storyId: story.id,
-            progress: progress,
-            isCompleted: progress >= 1.0,
-          ),
-        );
-      }
+      storyEvents.add(StoryEvent(
+        storyId: storyId,
+        progress: progress,
+        isCompleted: progress >= 1.0,
+      ));
     }
 
     return storyEvents;
@@ -340,27 +346,10 @@ class DiscoveryService {
     );
   }
 
-  /// Helper to check if a specific verse falls inside a story range.
-  bool _ayahInRange(int surah, int ayah, StoryVerseRange range) {
-    return surah == range.surahNum &&
-        ayah >= range.ayahStart &&
-        ayah <= range.ayahEnd;
-  }
 
   /// Private transaction helper to recalculate progress for all expeditions affected by the read verse.
   Future<void> _updateExpeditionProgress(int surah, int ayah) async {
-    final Map<String, List<List<int>>> routes = {
-      'exp_exodus': [[28, 3, 46], [20, 9, 98]],
-      'exp_wisdom_luqman': [[31, 12, 19]],
-      'exp_covenant_abraham': [[6, 74, 83], [2, 124, 128], [37, 99, 113]],
-      'exp_patience_triumph': [[12, 4, 101]],
-      'exp_sleepers_signs': [[18, 9, 26], [18, 60, 82], [18, 83, 98]],
-      'exp_creation_garden': [[2, 30, 39], [7, 11, 25]],
-      'exp_ark_salvation': [[11, 25, 49], [71, 1, 28]],
-      'exp_kingdom_grace': [[27, 15, 44], [38, 17, 40]],
-      'exp_pure_birth': [[19, 1, 36], [3, 33, 47]],
-      'exp_call_monotheism': [[96, 1, 5], [73, 1, 10], [68, 1, 4]],
-    };
+    const routes = kExpeditionRoutes;
 
     for (final entry in routes.entries) {
       final expId = entry.key;

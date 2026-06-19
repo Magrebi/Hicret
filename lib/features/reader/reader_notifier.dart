@@ -6,7 +6,6 @@ import '../../core/repositories/quran_repository.dart';
 
 import '../../core/local_db/database_provider.dart';
 import 'package:drift/drift.dart';
-import '../../core/local_db/database_seeder.dart';
 import '../../core/network/quran_api_service.dart';
 import '../home/surah_data.dart';
 
@@ -70,11 +69,6 @@ Future<List<Verse>> verseList(VerseListRef ref, int surahNum) async {
   final db = ref.read(appDatabaseProvider);
   final apiService = ref.read(quranApiServiceProvider);
   
-  // Seed the main entities and metadata if they haven't been seeded yet
-  final existingEntities = await db.select(db.entities).get();
-  if (existingEntities.isEmpty) {
-    await seedDatabaseFromJson(db);
-  }
 
   // First, try to fetch the real verses from the API
   bool seededFromApi = false;
